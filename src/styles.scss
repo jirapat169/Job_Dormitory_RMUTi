@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: unset !important;
+}
+
+* {
+  font-family: "Prompt", sans-serif !important;
+}
+
+.material-icons {
+  font-family: "Material Icons" !important;
+}
+
+.mat-list-base .mat-list-item,
+.mat-list-base .mat-list-option {
+  height: unset !important;
+  a {
+    padding-top: 9px !important;
+    padding-bottom: 9px !important;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
+.box-padding {
+  padding: 15px;
+}
