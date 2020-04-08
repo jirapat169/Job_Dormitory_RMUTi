@@ -2,6 +2,8 @@ import { DefaultLayoutComponent } from './components/default-layout/default-layo
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PrivateLayoutComponent } from './components/private-layout/private-layout.component';
+import { RootGuard } from './guards/root.guard';
+import { MyGuard } from './guards/my.guard';
 
 const routes: Routes = [
   {
@@ -11,18 +13,27 @@ const routes: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('./pages/home/home.module').then((m) => m.HomeModule),
+          import('./shared/home/home.module').then((m) => m.HomeModule),
       },
       {
         path: 'login',
         loadChildren: () =>
-          import('./pages/login/login.module').then((m) => m.LoginModule),
+          import('./pages/default/login/login.module').then(
+            (m) => m.LoginModule
+          ),
       },
       {
         path: 'register',
         loadChildren: () =>
-          import('./pages/register/register.module').then(
+          import('./pages/default/register/register.module').then(
             (m) => m.RegisterModule
+          ),
+      },
+      {
+        path: 'contact',
+        loadChildren: () =>
+          import('./shared/contact/contact.module').then(
+            (m) => m.ContactModule
           ),
       },
       {
@@ -32,7 +43,56 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'root', component: PrivateLayoutComponent },
+  {
+    path: 'root',
+    component: PrivateLayoutComponent,
+    data: { role: 'admin' },
+    canActivate: [RootGuard],
+    children: [
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./shared/home/home.module').then((m) => m.HomeModule),
+      },
+      {
+        path: 'contact',
+        loadChildren: () =>
+          import('./shared/contact/contact.module').then(
+            (m) => m.ContactModule
+          ),
+      },
+      {
+        path: '',
+        redirectTo: '/root/home',
+        pathMatch: 'full',
+      },
+    ],
+  },
+  {
+    path: 'my',
+    component: PrivateLayoutComponent,
+    data: { role: 'student' },
+    canActivate: [MyGuard],
+    children: [
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./shared/home/home.module').then((m) => m.HomeModule),
+      },
+      {
+        path: 'contact',
+        loadChildren: () =>
+          import('./shared/contact/contact.module').then(
+            (m) => m.ContactModule
+          ),
+      },
+      {
+        path: '',
+        redirectTo: '/my/home',
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];
 
 @NgModule({
