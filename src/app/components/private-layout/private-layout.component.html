@@ -7,25 +7,68 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <mat-toolbar>Menu</mat-toolbar>
+    <div class="text-center mt-3">
+      <img src="assets/img/RMUTI_LOGO.png" alt="RMUTI_LOGO" width="60" />
+    </div>
+
+    <div class="text-center" style="padding-right: 10px; padding-left: 10px;">
+      <h2>นายสมชาย ใจดี</h2>
+      <h3 *ngIf="roleUser == 'student'">12345678901-2</h3>
+    </div>
+
+    <div
+      class="text-right mt-2 mb-2"
+      style="padding-left: 15px; padding-right: 15px;"
+    >
+      <span
+        class="mr-3"
+        matBadge="1"
+        matBadgeColor="warn"
+        matBadgePosition="after"
+        *ngIf="roleUser == 'student'"
+      >
+        <div class="circle-box border" matRipple matTooltip="การแจ้งเตือน">
+          <i class="fas fa-bell fa-lg"></i>
+        </div>
+      </span>
+
+      <div class="circle-box border mr-3" matRipple matTooltip="ข้อมูลส่วนตัว">
+        <i class="fas fa-user fa-lg"></i>
+      </div>
+
+      <div
+        class="circle-box border text-danger"
+        matRipple
+        matTooltip="ออกจากระบบ"
+        [routerLink]="['/login']"
+      >
+        <i class="fas fa-sign-out-alt fa-lg"></i>
+      </div>
+    </div>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a
+        mat-list-item
+        routerLink="{{ roleUser == 'admin' ? '/root/home' : '/my/home' }}"
+        routerLinkActive="router-acrive"
+        >หน้าหลัก</a
+      >
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar>
       <button
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async"
       >
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span>dormitory</span>
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon></button
+      >&nbsp;
+      <span class="d-none d-sm-none d-md-block"
+        >ระบบเว็บแอปพลิเคชันการจัดการค่าใช้จ่ายนักศึกษา (
+        {{ roleUser == "admin" ? "ผู้ดูแลระบบ" : "นักศึกษา" }} )</span
+      >
+      <span class="d-block d-sm-block d-md-none">Dormitory</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

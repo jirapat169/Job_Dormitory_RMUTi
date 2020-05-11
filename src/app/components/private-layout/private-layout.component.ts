@@ -10,7 +10,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./private-layout.component.scss'],
 })
 export class PrivateLayoutComponent implements OnInit {
-  isHandset$: Observable<boolean> = this.breakpointObserver
+  public roleUser: string = '';
+
+  public isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
       map((result) => result.matches),
@@ -23,8 +25,7 @@ export class PrivateLayoutComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((value: any) => {
-      console.log(value);
-    });
+    this.roleUser = this.route.snapshot.data.role;
+    console.log(this.roleUser);
   }
 }

@@ -30,14 +30,20 @@ p {
 .mat-list-base .mat-list-item,
 .mat-list-base .mat-list-option {
   height: unset !important;
-  a {
-    padding-top: 9px !important;
-    padding-bottom: 9px !important;
-  }
+}
+
+.mat-list-base {
+  padding: unset !important;
+}
+
+.mat-list-item-content {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
 }
 
 mat-form-field {
   width: 100%;
+  line-height: unset !important;
 }
 
 .cdk-global-overlay-wrapper,
@@ -47,4 +53,19 @@ mat-form-field {
 
 .box-padding {
   padding: 15px;
+}
+
+.mat-drawer-container {
+  background-color: #fff;
+}
+
+.circle-box {
+  height: 40px;
+  line-height: 40px;
+  width: 40px;
+  border-radius: 50% !important;
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  color: #007bff;
 }

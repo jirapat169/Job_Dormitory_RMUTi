@@ -11,11 +11,6 @@ const routes: Routes = [
     component: DefaultLayoutComponent,
     children: [
       {
-        path: 'home',
-        loadChildren: () =>
-          import('./shared/home/home.module').then((m) => m.HomeModule),
-      },
-      {
         path: 'login',
         loadChildren: () =>
           import('./pages/default/login/login.module').then(
@@ -37,58 +32,58 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'root',
+        component: PrivateLayoutComponent,
+        data: { role: 'admin' },
+        canActivate: [RootGuard],
+        children: [
+          {
+            path: 'home',
+            loadChildren: () =>
+              import('./shared/home/home.module').then((m) => m.HomeModule),
+          },
+          {
+            path: 'contact',
+            loadChildren: () =>
+              import('./shared/contact/contact.module').then(
+                (m) => m.ContactModule
+              ),
+          },
+          {
+            path: '',
+            redirectTo: '/root/home',
+            pathMatch: 'full',
+          },
+        ],
+      },
+      {
+        path: 'my',
+        component: PrivateLayoutComponent,
+        data: { role: 'student' },
+        canActivate: [MyGuard],
+        children: [
+          {
+            path: 'home',
+            loadChildren: () =>
+              import('./shared/home/home.module').then((m) => m.HomeModule),
+          },
+          {
+            path: 'contact',
+            loadChildren: () =>
+              import('./shared/contact/contact.module').then(
+                (m) => m.ContactModule
+              ),
+          },
+          {
+            path: '',
+            redirectTo: '/my/home',
+            pathMatch: 'full',
+          },
+        ],
+      },
+      {
         path: '',
-        redirectTo: '/home',
-        pathMatch: 'full',
-      },
-    ],
-  },
-  {
-    path: 'root',
-    component: PrivateLayoutComponent,
-    data: { role: 'admin' },
-    canActivate: [RootGuard],
-    children: [
-      {
-        path: 'home',
-        loadChildren: () =>
-          import('./shared/home/home.module').then((m) => m.HomeModule),
-      },
-      {
-        path: 'contact',
-        loadChildren: () =>
-          import('./shared/contact/contact.module').then(
-            (m) => m.ContactModule
-          ),
-      },
-      {
-        path: '',
-        redirectTo: '/root/home',
-        pathMatch: 'full',
-      },
-    ],
-  },
-  {
-    path: 'my',
-    component: PrivateLayoutComponent,
-    data: { role: 'student' },
-    canActivate: [MyGuard],
-    children: [
-      {
-        path: 'home',
-        loadChildren: () =>
-          import('./shared/home/home.module').then((m) => m.HomeModule),
-      },
-      {
-        path: 'contact',
-        loadChildren: () =>
-          import('./shared/contact/contact.module').then(
-            (m) => m.ContactModule
-          ),
-      },
-      {
-        path: '',
-        redirectTo: '/my/home',
+        redirectTo: '/login',
         pathMatch: 'full',
       },
     ],
