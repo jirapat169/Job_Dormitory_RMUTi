@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
       this.service
         .httpPost('/user/register', JSON.stringify(this.formRegister.value))
         .then((value: any) => {
-          console.log(value);
+          // console.log(value);
           if (value) {
             this.service.showAlert(
               '',

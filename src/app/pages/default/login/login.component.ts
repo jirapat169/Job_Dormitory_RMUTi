@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,23 @@ export class LoginComponent implements OnInit {
     });
 
     this.activeRoute.queryParams.subscribe((value: any) => {
+      // console.log(value);
       if (value.oldPath) this.oldPath = value.oldPath;
+      if (value.sso) {
+        this.service
+          .httpGet(`/user/getSSO?perid=${value.perid}`)
+          .then((value: any) => {
+            // console.log(value);
+            if (value) {
+              if (value.success) {
+                this.service.setUserLogin(value.result);
+                this.service.navRouter(this.oldPath);
+              } else {
+                this.service.showAlert('', value.message, 'error');
+              }
+            }
+          });
+      }
     });
   }
 
@@ -33,7 +50,7 @@ export class LoginComponent implements OnInit {
     this.service
       .httpPost('/user/login', JSON.stringify(this.formLogin.value))
       .then((value: any) => {
-        console.log(value);
+        // console.log(value);
         if (value) {
           if (value.success) {
             this.service.setUserLogin(value.result);
@@ -43,5 +60,9 @@ export class LoginComponent implements OnInit {
           }
         }
       });
+  };
+
+  public openSSO = () => {
+    window.location.replace(environment.ssoLogin);
   };
 }

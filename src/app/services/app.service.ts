@@ -69,6 +69,10 @@ export class AppService {
         .toPromise()
         .then((value: any) => {
           resolve(value);
+          if (value.isLogin == false) {
+            this.showAlert('', value.message, 'warning');
+            this.navRouter('/login', { oldPath: this.currentRouter });
+          }
         })
         .catch((reason: any) => {
           resolve(null);
@@ -90,6 +94,10 @@ export class AppService {
         .toPromise()
         .then((value: any) => {
           resolve(value);
+          if (value.isLogin == false) {
+            this.showAlert('', value.message, 'warning');
+            this.navRouter('/login', { oldPath: this.currentRouter });
+          }
         })
         .catch((reason: any) => {
           resolve(null);

@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open --aot --poll=2000",
-    "build": "ng build --prod --build-optimizer && npm run scully -- --scanRoutes && npm run scully -- --nw",
+    "build": "ng build --prod --build-optimizer && npm run scully -- --scanRoutes",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

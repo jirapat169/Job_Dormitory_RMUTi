@@ -13,6 +13,7 @@ import { AppService } from '../services/app.service';
 })
 export class CheckLoginGuard implements CanActivate {
   constructor(private service: AppService) {}
+
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.service.localStorage.get('userLogin')) {
       this.service.setUserLogin(this.service.localStorage.get('userLogin'));

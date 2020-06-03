@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AppService } from 'src/app/services/app.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-private',
@@ -24,6 +25,6 @@ export class PrivateComponent {
 
   public onLogout = () => {
     this.service.localStorage.clear();
-    this.service.navRouter('/login');
+    window.location.replace(environment.ssoLogout);
   };
 }

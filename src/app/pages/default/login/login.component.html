@@ -17,7 +17,11 @@
             </div>
             <div style="padding: 20px;">
               <div class="text-center">
-                <button type="button" class="btn btn-warning">
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  (click)="openSSO()"
+                >
                   เข้าใช้งานด้วยบัญชีอินเทอร์เน็ต มทร.อีสาน
                 </button>
               </div>
@@ -31,15 +35,20 @@
                 [formGroup]="formLogin"
                 (ngSubmit)="formLogin.valid ? onLogin() : ''"
               >
-                <mat-form-field appearance="outline">
-                  <mat-label>ชื่อผู้ใช้งานหรือรหัสนักศึกษา</mat-label>
-                  <input
-                    matInput
-                    placeholder=""
-                    type="text"
-                    formControlName="username"
-                  />
-                </mat-form-field>
+                <div class="mb-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>ชื่อผู้ใช้งาน</mat-label>
+                    <input
+                      matInput
+                      placeholder=""
+                      type="text"
+                      formControlName="username"
+                    />
+                    <mat-hint style="font-size: 13px;">
+                      *สำหรับนักศึกษา ให้ใช้รหัสประจำตัวนักศึกษาในการเข้าสู่ระบบ
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
 
                 <mat-form-field appearance="outline">
                   <mat-label>รหัสผ่าน</mat-label>
