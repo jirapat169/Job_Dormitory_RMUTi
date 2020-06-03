@@ -7,6 +7,7 @@ import {
   NavigationError,
   ActivatedRoute,
 } from '@angular/router';
+import { AppService } from './services/app.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import {
 })
 export class AppComponent {
   title = 'dormitory';
-  constructor(private router: Router) {
+  constructor(private router: Router, public service: AppService) {
     this.router.events.subscribe(async (event) => {
       // console.log(this.router.url);
 
@@ -31,6 +32,7 @@ export class AppComponent {
           // this.loading = false;
           let baseHref: any = document.getElementById('baseHref');
           baseHref['href'] = '/';
+          baseHref['href'] = '/project/dormitory/cost/';
           break;
         }
         default: {

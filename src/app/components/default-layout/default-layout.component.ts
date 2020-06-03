@@ -9,9 +9,5 @@ import { ActivatedRoute } from '@angular/router';
 export class DefaultLayoutComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    this.route.data.subscribe((value: any) => {
-      console.log(value);
-    });
-  }
+  ngOnInit(): void {}
 }

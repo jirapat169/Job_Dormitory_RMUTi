@@ -27,26 +27,35 @@
               >
                 <h3>หรือ</h3>
               </div>
-              <form action="">
+              <form
+                [formGroup]="formLogin"
+                (ngSubmit)="formLogin.valid ? onLogin() : ''"
+              >
                 <mat-form-field appearance="outline">
                   <mat-label>ชื่อผู้ใช้งานหรือรหัสนักศึกษา</mat-label>
-                  <input matInput placeholder="" type="text" />
+                  <input
+                    matInput
+                    placeholder=""
+                    type="text"
+                    formControlName="username"
+                  />
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                   <mat-label>รหัสผ่าน</mat-label>
-                  <input matInput placeholder="" type="password" />
+                  <input
+                    matInput
+                    placeholder=""
+                    type="password"
+                    formControlName="password"
+                  />
                   <mat-hint style="font-size: 15px;">
                     <a href="">ลืมรหัสผ่าน</a>
                   </mat-hint>
                 </mat-form-field>
 
                 <div style="margin-top: 20px;" class="text-center mb-1">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    [routerLink]="['/my']"
-                  >
+                  <button type="submit" class="btn btn-primary">
                     เข้าใช้งาน
                   </button>
                 </div>

@@ -1,9 +1,8 @@
 import { DefaultLayoutComponent } from './components/default-layout/default-layout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PrivateLayoutComponent } from './components/private-layout/private-layout.component';
-import { RootGuard } from './guards/root.guard';
-import { MyGuard } from './guards/my.guard';
+import { PrivateComponent } from './components/private/private.component';
+import { CheckLoginGuard } from './guards/check-login.guard';
 
 const routes: Routes = [
   {
@@ -25,66 +24,21 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'contact',
-        loadChildren: () =>
-          import('./shared/contact/contact.module').then(
-            (m) => m.ContactModule
-          ),
-      },
-      {
-        path: 'root',
-        component: PrivateLayoutComponent,
-        data: { role: 'admin' },
-        canActivate: [RootGuard],
-        children: [
-          {
-            path: 'home',
-            loadChildren: () =>
-              import('./shared/home/home.module').then((m) => m.HomeModule),
-          },
-          {
-            path: 'contact',
-            loadChildren: () =>
-              import('./shared/contact/contact.module').then(
-                (m) => m.ContactModule
-              ),
-          },
-          {
-            path: '',
-            redirectTo: '/root/home',
-            pathMatch: 'full',
-          },
-        ],
-      },
-      {
-        path: 'my',
-        component: PrivateLayoutComponent,
-        data: { role: 'student' },
-        canActivate: [MyGuard],
-        children: [
-          {
-            path: 'home',
-            loadChildren: () =>
-              import('./shared/home/home.module').then((m) => m.HomeModule),
-          },
-          {
-            path: 'contact',
-            loadChildren: () =>
-              import('./shared/contact/contact.module').then(
-                (m) => m.ContactModule
-              ),
-          },
-          {
-            path: '',
-            redirectTo: '/my/home',
-            pathMatch: 'full',
-          },
-        ],
-      },
-      {
         path: '',
-        redirectTo: '/login',
-        pathMatch: 'full',
+        component: PrivateComponent,
+        canActivate: [CheckLoginGuard],
+        children: [
+          {
+            path: 'home',
+            loadChildren: () =>
+              import('./shared/home/home.module').then((m) => m.HomeModule),
+          },
+          {
+            path: '',
+            redirectTo: '/home',
+            pathMatch: 'full',
+          },
+        ],
       },
     ],
   },

@@ -6,20 +6,24 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScullyLibModule } from '@scullyio/ng-lib';
 import { DefaultLayoutComponent } from './components/default-layout/default-layout.component';
-import { PrivateLayoutComponent } from './components/private-layout/private-layout.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AppService } from './services/app.service';
-import { RootGuard } from './guards/root.guard';
-import { MyGuard } from './guards/my.guard';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { SharedModule } from './shared/shared-module';
+import { PrivateComponent } from './components/private/private.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { CheckLoginGuard } from './guards/check-login.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     DefaultLayoutComponent,
-    PrivateLayoutComponent,
     NotfoundComponent,
+    PrivateComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,8 +32,13 @@ import { SharedModule } from './shared/shared-module';
     ScullyLibModule,
     LayoutModule,
     SharedModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
   ],
-  providers: [AppService, RootGuard, MyGuard],
+  providers: [AppService, CheckLoginGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
