@@ -59,7 +59,7 @@
                     formControlName="password"
                   />
                   <mat-hint style="font-size: 15px;">
-                    <a href="">ลืมรหัสผ่าน</a>
+                    <a [routerLink]="['/forget-password']">ลืมรหัสผ่าน</a>
                   </mat-hint>
                 </mat-form-field>
 
@@ -75,7 +75,7 @@
                     style="text-decoration: unset;"
                     [routerLink]="['/register']"
                   >
-                    สร้างบัญชี
+                    สร้างบัญชีผู้ใช้
                   </button>
                 </div>
               </form>

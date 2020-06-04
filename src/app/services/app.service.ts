@@ -1,8 +1,10 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { Title, Meta } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +17,12 @@ export class AppService {
   private userLogin: any = null;
   private showLoading: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private titleService: Title,
+    private metaService: Meta
+  ) {}
 
   public getRouter = (callback: (arg0: string) => void) => {
     this.currentRouterSubscribe = this.router.events;
@@ -125,6 +132,31 @@ export class AppService {
     });
   };
 
+  public showConfirm = (
+    title: string,
+    message: string,
+    type: 'success' | 'warning' | 'error'
+  ) => {
+    return new Promise((resolve) => {
+      Swal.fire({
+        title: title,
+        text: message,
+        icon: type,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ตกลง',
+        cancelButtonText: 'ยกเลิก',
+        focusCancel: true,
+      }).then((result) => {
+        if (result.value) {
+          resolve(true);
+        }
+        resolve(false);
+      });
+    });
+  };
+
   // ---------------------------------------------------- //
 
   public loading = {
@@ -147,6 +179,72 @@ export class AppService {
       setTimeout(() => {
         resolve();
       }, ms);
+    });
+  };
+
+  // ---------------------------------------------------- //
+
+  public setHeaderPage = (path: string, title: string = null) => {
+    let canonical: any = document.getElementById('canonical');
+    canonical['href'] = `${environment.url}${path}`;
+
+    let alternate: any = document.getElementById('alternate');
+    alternate['href'] = `${environment.url}${path}`;
+
+    this.titleService.setTitle(
+      `${
+        title ? title + ' - ' : ''
+      }ระบบเว็บแอปพลิเคชันการจัดการค่าใช้จ่ายนักศึกษา`
+    );
+
+    this.metaService.updateTag({
+      name: 'keywords',
+      content: `${
+        title ? title + ', ' : ''
+      } ระบบเว็บแอปพลิเคชันการจัดการค่าใช้จ่ายนักศึกษา, หอพักนักศึกษา, หอใน, เทคโน, เทคโนโคราช, rmuti, ค่าน้ำค่าไฟ, ค่าประกันหอ, ค่าใช้จ่ายหอใน, หอพักนักศึกษามหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน, นครราชสีมา`,
+    });
+    this.metaService.updateTag({
+      name: 'description',
+      content:
+        'เว็บแอปพลิเคชันจัดการในการเก็บข้อมูลหอพัก ค่าไฟหอพัก โดยการตรวจสอบสถานะของนักศึกษาที่ค้างชำระค่าหอพักนักศึกษา ค่าประกันหอพัก คำนวณการใช้หน่วยไฟฟ้าของแต่ละห้องคำนวณออกมา และสมารถสรุปผลเป็นรายเดือนรายปีได้ จึงได้ทำการเก็บข้อมูลจากหอพักนักศึกษาเก็บกับค่าใช้จ่ายและรายละเอียดต่าง ๆ จากสำนักงานหอพักนักศึกษามหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน นครราชสีมา',
+    });
+    this.metaService.updateTag({ name: 'robots', content: 'index, follow' });
+    this.metaService.updateTag({
+      property: 'og:url',
+      content: `${environment.url}${path}`,
+    });
+    this.metaService.updateTag({ property: 'og:type', content: `website` });
+    this.metaService.updateTag({
+      property: 'og:title',
+      content: `${
+        title ? title + ' - ' : ''
+      }ระบบเว็บแอปพลิเคชันการจัดการค่าใช้จ่ายนักศึกษา`,
+    });
+    this.metaService.updateTag({
+      property: 'og:description',
+      content: `เว็บแอปพลิเคชันจัดการในการเก็บข้อมูลหอพัก ค่าไฟหอพัก โดยการตรวจสอบสถานะของนักศึกษาที่ค้างชำระค่าหอพักนักศึกษา ค่าประกันหอพัก คำนวณการใช้หน่วยไฟฟ้าของแต่ละห้องคำนวณออกมา และสมารถสรุปผลเป็นรายเดือนรายปีได้ จึงได้ทำการเก็บข้อมูลจากหอพักนักศึกษาเก็บกับค่าใช้จ่ายและรายละเอียดต่าง ๆ จากสำนักงานหอพักนักศึกษามหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน นครราชสีมา`,
+    });
+    this.metaService.updateTag({
+      property: 'og:image',
+      content: `${environment.url}asset/img/RMUTI_LOGO.png`,
+    });
+    this.metaService.updateTag({
+      property: 'twitter:card',
+      content: `summary`,
+    });
+    this.metaService.updateTag({
+      property: 'twitter:title',
+      content: `${
+        title ? title + ' - ' : ''
+      }ระบบเว็บแอปพลิเคชันการจัดการค่าใช้จ่ายนักศึกษา`,
+    });
+    this.metaService.updateTag({
+      property: 'twitter:image',
+      content: `${environment.url}asset/img/RMUTI_LOGO.png`,
+    });
+    this.metaService.updateTag({
+      property: 'twitter:description',
+      content: `เว็บแอปพลิเคชันจัดการในการเก็บข้อมูลหอพัก ค่าไฟหอพัก โดยการตรวจสอบสถานะของนักศึกษาที่ค้างชำระค่าหอพักนักศึกษา ค่าประกันหอพัก คำนวณการใช้หน่วยไฟฟ้าของแต่ละห้องคำนวณออกมา และสมารถสรุปผลเป็นรายเดือนรายปีได้ จึงได้ทำการเก็บข้อมูลจากหอพักนักศึกษาเก็บกับค่าใช้จ่ายและรายละเอียดต่าง ๆ จากสำนักงานหอพักนักศึกษามหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน นครราชสีมา`,
     });
   };
 }

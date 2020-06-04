@@ -10,7 +10,9 @@ import { AppService } from 'src/app/services/app.service';
 export class RegisterComponent implements OnInit {
   public formRegister: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public service: AppService) {}
+  constructor(private formBuilder: FormBuilder, public service: AppService) {
+    this.service.setHeaderPage('register', 'สร้างบัญชีผู้ใช้');
+  }
 
   ngOnInit() {
     this.formRegister = this.formBuilder.group({

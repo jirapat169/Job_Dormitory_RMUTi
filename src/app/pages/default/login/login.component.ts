@@ -17,7 +17,9 @@ export class LoginComponent implements OnInit {
     public service: AppService,
     private activeRoute: ActivatedRoute,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.service.setHeaderPage('login', 'เข้าสู่ระบบ');
+  }
 
   async ngOnInit() {
     this.formLogin = this.formBuilder.group({

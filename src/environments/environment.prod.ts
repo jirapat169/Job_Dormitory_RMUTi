@@ -5,4 +5,5 @@ export const environment = {
   ssoLogout:
     'http://www.cpe.rmuti.ac.th/project/QR_Student/sso/?slo&redirect=http://cpe.rmuti.ac.th/project/dormitory/cost/login',
   baseHref: '/project/dormitory/cost/',
+  url: 'http://cpe.rmuti.ac.th/project/dormitory/cost/',
 };

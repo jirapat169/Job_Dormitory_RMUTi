@@ -69,3 +69,9 @@ mat-form-field {
   display: inline-block;
   color: #007bff;
 }
+
+.mat-tab-label-active {
+  color: #3f51b5;
+  font-weight: bold;
+  opacity: 1 !important;
+}

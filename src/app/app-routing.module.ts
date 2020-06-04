@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PrivateComponent } from './components/private/private.component';
 import { CheckLoginGuard } from './guards/check-login.guard';
+import { AdminViewGuard } from './guards/admin-view.guard';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 
 const routes: Routes = [
   {
@@ -24,6 +26,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'forget-password',
+        loadChildren: () =>
+          import('./pages/default/forget-password/forget-password.module').then(
+            (m) => m.ForgetPasswordModule
+          ),
+      },
+      {
         path: '',
         component: PrivateComponent,
         canActivate: [CheckLoginGuard],
@@ -34,11 +43,30 @@ const routes: Routes = [
               import('./shared/home/home.module').then((m) => m.HomeModule),
           },
           {
+            path: 'usermanager',
+            canActivate: [AdminViewGuard],
+            loadChildren: () =>
+              import('./pages/admin/usermanager/usermanager.module').then(
+                (m) => m.UsermanagerModule
+              ),
+          },
+          {
+            path: 'changepassword',
+            loadChildren: () =>
+              import('./shared/change-password/change-password.module').then(
+                (m) => m.ChangePasswordModule
+              ),
+          },
+          {
             path: '',
             redirectTo: '/home',
             pathMatch: 'full',
           },
         ],
+      },
+      {
+        path: '**',
+        component: NotfoundComponent,
       },
     ],
   },

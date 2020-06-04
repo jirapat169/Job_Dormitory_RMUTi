@@ -17,6 +17,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { CheckLoginGuard } from './guards/check-login.guard';
+import { AdminViewGuard } from './guards/admin-view.guard';
+import { StudentViewGuard } from './guards/student-view.guard';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { CheckLoginGuard } from './guards/check-login.guard';
     MatIconModule,
     MatListModule,
   ],
-  providers: [AppService, CheckLoginGuard],
+  providers: [AppService, CheckLoginGuard, AdminViewGuard, StudentViewGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

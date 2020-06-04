@@ -1,173 +1,227 @@
-<div *ngIf="service.getUserLogin()['role'] == 'student'">
-  <div class="row">
-    <div class="col-md-3 mb-3">
-      <mat-card style="background-color: #d39d39; box-shadow: unset;">
-        <div class="row">
-          <div class="col">
-            <i class="fas fa-building fa-4x text-white"></i>
-          </div>
-          <div class="col text-white text-right">
-            <div>
-              <h1>หอพัก</h1>
+<div class="box-padding">
+  <div *ngIf="service.getUserLogin()['role'] == 'student'">
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <mat-card style="background-color: #d39d39; box-shadow: unset;">
+          <div class="row">
+            <div class="col">
+              <i class="fas fa-building fa-4x text-white"></i>
             </div>
-            <div>
-              <h3>
-                {{
-                  service
-                    .getUserLogin()
-                    ["room_number"].split("/")[0]
-                    .charAt(0) == "1"
-                    ? "หญิง"
-                    : "ชาย"
-                }}
-              </h3>
+            <div class="col text-white text-right">
+              <div>
+                <h1>หอพัก</h1>
+              </div>
+              <div>
+                <h3>
+                  {{
+                    service
+                      .getUserLogin()
+                      ["room_number"].split("/")[0]
+                      .charAt(0) == "1"
+                      ? "หญิง"
+                      : "ชาย"
+                  }}
+                </h3>
+              </div>
             </div>
           </div>
-        </div>
-      </mat-card>
+        </mat-card>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <mat-card style="background-color: #e27f58; box-shadow: unset;">
+          <div class="row">
+            <div class="col">
+              <i class="fas fa-snowflake fa-4x text-white"></i>
+            </div>
+            <div class="col text-white text-right">
+              <div>
+                <h1>ประเภท</h1>
+              </div>
+              <div>
+                <h3>
+                  {{
+                    service
+                      .getUserLogin()
+                      ["room_number"].split("/")[0]
+                      .charAt(1) == "8"
+                      ? "ห้องแอร์"
+                      : "ห้องพัดลม"
+                  }}
+                </h3>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <mat-card style="background-color: #35a7d6; box-shadow: unset;">
+          <div class="row">
+            <div class="col">
+              <i class="fas fa-home fa-4x text-white"></i>
+            </div>
+            <div class="col text-white text-right">
+              <div>
+                <h1>เลขห้อง</h1>
+              </div>
+              <div>
+                <h3>
+                  {{ service.getUserLogin()["room_number"].split("/")[0] }}
+                </h3>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <mat-card style="background-color: #00b393; box-shadow: unset;">
+          <div class="row">
+            <div class="col">
+              <i class="fas fa-bed fa-4x text-white"></i>
+            </div>
+            <div class="col text-white text-right">
+              <div>
+                <h1>เตียง</h1>
+              </div>
+              <div>
+                <h3>
+                  {{ service.getUserLogin()["room_number"].split("/")[1] }}
+                </h3>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
     </div>
 
-    <div class="col-md-3 mb-3">
-      <mat-card style="background-color: #e27f58; box-shadow: unset;">
-        <div class="row">
-          <div class="col">
-            <i class="fas fa-snowflake fa-4x text-white"></i>
+    <div class="row">
+      <div class="col-md-5 mb-3">
+        <div class="card">
+          <div class="card-header" style="font-size: 18px;">
+            ข้อมูลส่วนตัว
           </div>
-          <div class="col text-white text-right">
-            <div>
-              <h1>ประเภท</h1>
-            </div>
-            <div>
-              <h3>
-                {{
-                  service
-                    .getUserLogin()
-                    ["room_number"].split("/")[0]
-                    .charAt(1) == "8"
-                    ? "ห้องแอร์"
-                    : "ห้องพัดลม"
-                }}
-              </h3>
-            </div>
+          <div class="card-body" style="font-size: 16px;">
+            <table class="table table-sm table-borderless table-hover">
+              <tbody>
+                <tr>
+                  <th style="vertical-align: middle;">รหัสนักศึกษา</th>
+                  <td style="vertical-align: middle;">
+                    {{ service.getUserLogin()["std_code"] }}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle;">ชื่อ - สกุล</th>
+                  <td style="vertical-align: middle;">
+                    {{
+                      service.getUserLogin()["nameTitle"] +
+                        service.getUserLogin()["fname"] +
+                        " " +
+                        service.getUserLogin()["lname"]
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle;">ระดับการศึกษา</th>
+                  <td style="vertical-align: middle;">
+                    {{ service.getUserLogin()["name"] }}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle;">คณะ</th>
+                  <td style="vertical-align: middle;">
+                    {{ service.getUserLogin()["f_name"] }}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle;">สาขาวิชา</th>
+                  <td style="vertical-align: middle;">
+                    {{ service.getUserLogin()["b_name"] }}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle;">กลุ่มเรียน</th>
+                  <td style="vertical-align: middle;">
+                    {{ service.getUserLogin()["b_acronym"] }}.{{
+                      service.getUserLogin()["groupStd"]
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle;">หมายเลขโทรศัพท์</th>
+                  <td style="vertical-align: middle;">
+                    {{ service.getUserLogin()["phone"] }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-      </mat-card>
-    </div>
+      </div>
 
-    <div class="col-md-3 mb-3">
-      <mat-card style="background-color: #35a7d6; box-shadow: unset;">
-        <div class="row">
-          <div class="col">
-            <i class="fas fa-home fa-4x text-white"></i>
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-header" style="font-size: 18px;">
+            การแจ้งเตือน
           </div>
-          <div class="col text-white text-right">
-            <div>
-              <h1>เลขห้อง</h1>
-            </div>
-            <div>
-              <h3>{{ service.getUserLogin()["room_number"].split("/")[0] }}</h3>
-            </div>
+          <div class="card-body" style="font-size: 16px;">
+            Notification
           </div>
         </div>
-      </mat-card>
-    </div>
+      </div>
 
-    <div class="col-md-3 mb-3">
-      <mat-card style="background-color: #00b393; box-shadow: unset;">
-        <div class="row">
-          <div class="col">
-            <i class="fas fa-bed fa-4x text-white"></i>
-          </div>
-          <div class="col text-white text-right">
-            <div>
-              <h1>เตียง</h1>
-            </div>
-            <div>
-              <h3>{{ service.getUserLogin()["room_number"].split("/")[1] }}</h3>
-            </div>
-          </div>
-        </div>
-      </mat-card>
+      <div class="col-md-3 mb-3">
+        <full-calendar
+          defaultView="dayGridMonth"
+          [plugins]="calendarPlugins"
+          [weekends]="false"
+        ></full-calendar>
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-5 mb-3">
-      <div class="card">
-        <div class="card-header" style="font-size: 18px;">
-          ข้อมูลส่วนตัว
-        </div>
-        <div class="card-body" style="font-size: 16px;">
-          <table class="table table-sm table-borderless table-hover">
-            <tbody>
-              <tr>
-                <th style="vertical-align: middle;">รหัสนักศึกษา</th>
-                <td style="vertical-align: middle;">
-                  {{ service.getUserLogin()["std_code"] }}
-                </td>
-              </tr>
-              <tr>
-                <th style="vertical-align: middle;">ชื่อ - สกุล</th>
-                <td style="vertical-align: middle;">
-                  {{
-                    service.getUserLogin()["nameTitle"] +
-                      service.getUserLogin()["fname"] +
-                      " " +
-                      service.getUserLogin()["lname"]
-                  }}
-                </td>
-              </tr>
-              <tr>
-                <th style="vertical-align: middle;">ระดับการศึกษา</th>
-                <td style="vertical-align: middle;">
-                  {{ service.getUserLogin()["name"] }}
-                </td>
-              </tr>
-              <tr>
-                <th style="vertical-align: middle;">คณะ</th>
-                <td style="vertical-align: middle;">
-                  {{ service.getUserLogin()["f_name"] }}
-                </td>
-              </tr>
-              <tr>
-                <th style="vertical-align: middle;">สาขาวิชา</th>
-                <td style="vertical-align: middle;">
-                  {{ service.getUserLogin()["b_name"] }}
-                </td>
-              </tr>
-              <tr>
-                <th style="vertical-align: middle;">กลุ่มเรียน</th>
-                <td style="vertical-align: middle;">
-                  {{ service.getUserLogin()["b_acronym"] }}.{{
-                    service.getUserLogin()["groupStd"]
-                  }}
-                </td>
-              </tr>
-              <tr>
-                <th style="vertical-align: middle;">หมายเลขโทรศัพท์</th>
-                <td style="vertical-align: middle;">
-                  {{ service.getUserLogin()["phone"] }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <div *ngIf="service.getUserLogin()['role'] == 'admin'">
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <mat-card style="background-color: #d39d39; box-shadow: unset;">
+          <div class="row">
+            <div class="col-4">
+              <i class="fas fa-male fa-4x text-white"></i>
+            </div>
+            <div class="col-8 text-white text-right">
+              <div>
+                <h1>นักศึกษาชาย</h1>
+              </div>
+              <div>
+                <h3>
+                  2 คน
+                </h3>
+              </div>
+            </div>
+          </div>
+        </mat-card>
       </div>
-    </div>
 
-    <div class="col-md-4 mb-3">
-      <div class="card">
-        <div class="card-header" style="font-size: 18px;">
-          การแจ้งเตือน
-        </div>
-        <div class="card-body" style="font-size: 16px;">
-          Notification
-        </div>
+      <div class="col-md-3 mb-3">
+        <mat-card style="background-color: #e27f58; box-shadow: unset;">
+          <div class="row">
+            <div class="col-4">
+              <i class="fa fa-female fa-4x text-white"></i>
+            </div>
+            <div class="col-8 text-white text-right">
+              <div>
+                <h1>นักศึกษาหญิง</h1>
+              </div>
+              <div>
+                <h3>
+                  2 คน
+                </h3>
+              </div>
+            </div>
+          </div>
+        </mat-card>
       </div>
-    </div>
-
-    <div class="col-md-3 mb-3">
-      <div id="home-calendar"></div>
     </div>
   </div>
 </div>

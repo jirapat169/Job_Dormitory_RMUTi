@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   title = 'dormitory';
 
   constructor(private router: Router, public service: AppService) {
+    this.service.setHeaderPage('');
     this.router.events.subscribe(async (event) => {
       // console.log(this.router.url);
 
