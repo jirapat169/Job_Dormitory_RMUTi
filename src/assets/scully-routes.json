@@ -1,1 +1,1 @@
-[{"route":"/login"},{"route":"/register"},{"route":"/home"},{"route":"/"}]
+[{"route":"/login"},{"route":"/register"},{"route":"/forget-password"},{"route":"/home"},{"route":"/usermanager"},{"route":"/changepassword"},{"route":"/"}]

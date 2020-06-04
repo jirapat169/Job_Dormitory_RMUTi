@@ -226,7 +226,7 @@ export class AppService {
     });
     this.metaService.updateTag({
       property: 'og:image',
-      content: `${environment.url}asset/img/RMUTI_LOGO.png`,
+      content: `${environment.url}assets/img/RMUTI_LOGO.png`,
     });
     this.metaService.updateTag({
       property: 'twitter:card',
@@ -240,7 +240,7 @@ export class AppService {
     });
     this.metaService.updateTag({
       property: 'twitter:image',
-      content: `${environment.url}asset/img/RMUTI_LOGO.png`,
+      content: `${environment.url}assets/img/RMUTI_LOGO.png`,
     });
     this.metaService.updateTag({
       property: 'twitter:description',
