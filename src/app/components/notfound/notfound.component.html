@@ -54,11 +54,11 @@
 </svg>
 <div class="message-box">
   <h1>404</h1>
-  <h3>ไม่พบหน้าที่คุณต้องการ</h3>
+  <h3>ไม่พบเนื้อหาที่ต้องการ</h3>
   <div class="buttons-con">
     <div class="action-link-wrap">
-      <a onclick="history.back(-1)" class="link-button link-back-button"
-        >กลับ</a
+      <a [routerLink]="['/home']" class="link-button link-back-button"
+        >กลับหน้าหลัก</a
       >
     </div>
   </div>

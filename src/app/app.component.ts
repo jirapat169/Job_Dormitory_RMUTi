@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'dormitory';
+  public loading = false;
 
   constructor(private router: Router, public service: AppService) {
     this.service.setHeaderPage('');
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
 
       switch (true) {
         case event instanceof NavigationStart: {
-          // this.loading = true;
+          this.loading = true;
           break;
         }
 
@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
           // this.loading = false;
           let baseHref: any = document.getElementById('baseHref');
           baseHref['href'] = environment.baseHref;
+          this.loading = false;
           break;
         }
         default: {

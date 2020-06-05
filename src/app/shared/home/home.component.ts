@@ -10,7 +10,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 export class HomeComponent implements OnInit {
   public calendarPlugins = [dayGridPlugin];
 
-  constructor(public service: AppService) {}
+  constructor(public service: AppService) {
+    this.service.setHeaderPage('home', 'หน้าหลัก');
+  }
 
   ngOnInit() {
     if (this.service.getUserLogin()['role'] == 'admin') {

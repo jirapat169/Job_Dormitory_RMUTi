@@ -1,4 +1,21 @@
-<mat-tab-group>
-  <mat-tab label="ผู้ดูแลหอพัก"> Content 1 </mat-tab>
-  <mat-tab label="นักศึกษา"> Content 2 </mat-tab>
-</mat-tab-group>
+<nav mat-tab-nav-bar>
+  <a
+    mat-tab-link
+    [routerLink]="['/usermanager/admin']"
+    routerLinkActive="router-active"
+  >
+    {{ "ผู้ดูแลหอพัก" }}
+  </a>
+
+  <a
+    mat-tab-link
+    [routerLink]="['/usermanager/student']"
+    routerLinkActive="router-active"
+  >
+    {{ "นักศึกษา" }}
+  </a>
+</nav>
+
+<div class="box-padding">
+  <router-outlet></router-outlet>
+</div>

@@ -79,6 +79,7 @@ export class AppService {
           if (value.isLogin == false) {
             this.showAlert('', value.message, 'warning');
             this.navRouter('/login', { oldPath: this.currentRouter });
+            this.localStorage.clear();
           }
         })
         .catch((reason: any) => {
@@ -104,6 +105,7 @@ export class AppService {
           if (value.isLogin == false) {
             this.showAlert('', value.message, 'warning');
             this.navRouter('/login', { oldPath: this.currentRouter });
+            this.localStorage.clear();
           }
         })
         .catch((reason: any) => {
@@ -164,7 +166,7 @@ export class AppService {
       this.showLoading = true;
     },
     hide: async () => {
-      await this.delay(500);
+      await this.delay(1000);
       this.showLoading = false;
     },
     status: () => {
