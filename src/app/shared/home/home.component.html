@@ -2,7 +2,7 @@
   <div *ngIf="service.getUserLogin()['role'] == 'student'">
     <div class="row">
       <div class="col-md-3 mb-3">
-        <mat-card style="background-color: #d39d39; box-shadow: unset;">
+        <mat-card style="background-color: #d39d39;" class="box-shadow">
           <div class="row">
             <div class="col">
               <i class="fas fa-building fa-4x text-white"></i>
@@ -29,7 +29,7 @@
       </div>
 
       <div class="col-md-3 mb-3">
-        <mat-card style="background-color: #e27f58; box-shadow: unset;">
+        <mat-card style="background-color: #e27f58;" class="box-shadow">
           <div class="row">
             <div class="col">
               <i class="fas fa-snowflake fa-4x text-white"></i>
@@ -56,7 +56,7 @@
       </div>
 
       <div class="col-md-3 mb-3">
-        <mat-card style="background-color: #35a7d6; box-shadow: unset;">
+        <mat-card style="background-color: #35a7d6;" class="box-shadow">
           <div class="row">
             <div class="col">
               <i class="fas fa-home fa-4x text-white"></i>
@@ -76,7 +76,7 @@
       </div>
 
       <div class="col-md-3 mb-3">
-        <mat-card style="background-color: #00b393; box-shadow: unset;">
+        <mat-card style="background-color: #00b393;" class="box-shadow">
           <div class="row">
             <div class="col">
               <i class="fas fa-bed fa-4x text-white"></i>
@@ -99,9 +99,7 @@
     <div class="row">
       <div class="col-md-5 mb-3">
         <div class="card">
-          <div class="card-header" style="font-size: 18px;">
-            ข้อมูลส่วนตัว
-          </div>
+          <h4 class="card-header">ข้อมูลส่วนตัว</h4>
           <div class="card-body" style="font-size: 16px;">
             <table class="table table-sm table-borderless table-hover">
               <tbody>
@@ -162,9 +160,7 @@
 
       <div class="col-md-4 mb-3">
         <div class="card">
-          <div class="card-header" style="font-size: 18px;">
-            การแจ้งเตือน
-          </div>
+          <h4 class="card-header">การแจ้งเตือน</h4>
           <div class="card-body" style="font-size: 16px;">
             Notification
           </div>
@@ -172,11 +168,15 @@
       </div>
 
       <div class="col-md-3 mb-3">
-        <full-calendar
-          defaultView="dayGridMonth"
-          [plugins]="calendarPlugins"
-          [weekends]="false"
-        ></full-calendar>
+        <div class="card">
+          <div class="card-body">
+            <full-calendar
+              defaultView="dayGridMonth"
+              [plugins]="calendarPlugins"
+              [weekends]="false"
+            ></full-calendar>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -184,7 +184,7 @@
   <div *ngIf="service.getUserLogin()['role'] == 'admin'">
     <div class="row">
       <div class="col-md-3 mb-3">
-        <mat-card style="background-color: #d39d39; box-shadow: unset;">
+        <mat-card style="background-color: #d39d39;" class="box-shadow">
           <div class="row">
             <div class="col-4">
               <i class="fas fa-male fa-4x text-white"></i>
@@ -204,7 +204,7 @@
       </div>
 
       <div class="col-md-3 mb-3">
-        <mat-card style="background-color: #e27f58; box-shadow: unset;">
+        <mat-card style="background-color: #e27f58;" class="box-shadow">
           <div class="row">
             <div class="col-4">
               <i class="fa fa-female fa-4x text-white"></i>
