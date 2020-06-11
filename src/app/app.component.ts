@@ -31,7 +31,6 @@ export class AppComponent implements OnInit {
         case event instanceof NavigationEnd:
         case event instanceof NavigationCancel:
         case event instanceof NavigationError: {
-          // this.loading = false;
           let baseHref: any = document.getElementById('baseHref');
           baseHref['href'] = environment.baseHref;
           this.loading = false;

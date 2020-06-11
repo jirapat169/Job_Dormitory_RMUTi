@@ -20,6 +20,10 @@ import { CheckLoginGuard } from './guards/check-login.guard';
 import { AdminViewGuard } from './guards/admin-view.guard';
 import { StudentViewGuard } from './guards/student-view.guard';
 
+export function getBaseUrl() {
+  return document.getElementsByTagName('base')[0].href;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +44,13 @@ import { StudentViewGuard } from './guards/student-view.guard';
     MatIconModule,
     MatListModule,
   ],
-  providers: [AppService, CheckLoginGuard, AdminViewGuard, StudentViewGuard],
+  providers: [
+    { provide: 'BASE_URL', useFactory: getBaseUrl },
+    AppService,
+    CheckLoginGuard,
+    AdminViewGuard,
+    StudentViewGuard,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
