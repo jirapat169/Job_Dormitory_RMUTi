@@ -19,6 +19,9 @@
             service.getUserLogin()["lname"]
         }}
       </h3>
+      <h4 *ngIf="service.getUserLogin()['role'] == 'admin'">
+        {{ service.getUserLogin()["type_name"] }}
+      </h4>
       <h4 *ngIf="service.getUserLogin()['std_code']">
         {{ service.getUserLogin()["std_code"] }}
       </h4>
@@ -93,7 +96,7 @@
       </mat-nav-list>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content id="sidenav-private">
     <mat-toolbar>
       <button
         type="button"
@@ -113,3 +116,12 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<button
+  (click)="topFunction()"
+  id="myBtn"
+  type="button"
+  class="btn btn-warning"
+>
+  <i class="fa fa-angle-up" aria-hidden="true"></i>
+</button>

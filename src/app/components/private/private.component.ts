@@ -25,15 +25,44 @@ export class PrivateComponent implements OnInit {
     public service: AppService
   ) {}
 
+  private scrollFunction = (event: any) => {
+    var mybutton = document.getElementById('myBtn');
+
+    if (event.target.scrollTop > 40 || event.srcElement.scrollTop > 40) {
+      mybutton.style.display = 'block';
+    } else {
+      mybutton.style.display = 'none';
+    }
+  };
+
+  public topFunction() {
+    let top = document.getElementById('sidenav-private');
+    top.scrollTo(0, 0);
+  }
+
   ngOnInit() {
+    let top = document.getElementById('sidenav-private');
+    top.addEventListener('scroll', this.scrollFunction, true);
+
     if (this.service.getUserLogin()['role'] == 'admin') {
-      this.menuList = [
-        {
-          icon: 'fas fa-users-cog',
-          name: 'จัดการบัญชีผู้ใช้',
-          path: '/usermanager',
-        },
-      ];
+      if (this.service.getUserLogin()['type_id'] == '1') {
+        this.menuList = [
+          {
+            icon: 'fas fa-users-cog',
+            name: 'จัดการบัญชีผู้ใช้',
+            path: '/usermanager',
+          },
+        ];
+      } else if (this.service.getUserLogin()['type_id'] == '2') {
+      } else if (this.service.getUserLogin()['type_id'] == '3') {
+        this.menuList = [
+          {
+            icon: 'fa fa-bolt',
+            name: 'จัดการมิเตอร์ค่าไฟฟ้า',
+            path: '/electric-bill',
+          },
+        ];
+      }
     } else {
     }
   }
@@ -43,6 +72,7 @@ export class PrivateComponent implements OnInit {
       .showConfirm('', 'ยืนยันการออกจากระบบ', 'warning')
       .then((value) => {
         if (value) {
+          this.service.loading.show();
           this.service.localStorage.clear();
           window.location.replace(environment.ssoLogout);
         }

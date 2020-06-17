@@ -1,0 +1,118 @@
+<div class="box-padding">
+  <div class="row">
+    <div class="col-md-5 mb-3">
+      <h1>จัดการมิเตอร์ค่าไฟฟ้า</h1>
+      <h4>
+        {{
+          "ประจำเดือน" +
+            service.month[serverTime.getMonth()] +
+            " " +
+            (serverTime.getFullYear() + 543)
+        }}
+      </h4>
+    </div>
+
+    <div class="col-md-7 mb-3">
+      <div class="row">
+        <div class="col-md"></div>
+        <div class="col-md">
+          <mat-form-field appearance="outline">
+            <mat-label>หอพัก</mat-label>
+            <mat-select
+              [(value)]="buildSelect"
+              (selectionChange)="selectRoom()"
+            >
+              <mat-option [value]="''">
+                โปรดเลือกหอพัก
+              </mat-option>
+              <mat-option [value]="'2'">
+                ชาย
+              </mat-option>
+              <mat-option [value]="'1'">
+                หญิง
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md">
+          <mat-form-field appearance="outline">
+            <mat-label>ชั้น</mat-label>
+            <mat-select
+              [(value)]="floorSelect"
+              (selectionChange)="selectRoom()"
+            >
+              <mat-option [value]="''">
+                โปรดเลือกชั้น
+              </mat-option>
+              <mat-option
+                *ngFor="let x of ['2', '3', '4', '5', '6', '7', '8']"
+                [value]="x"
+              >
+                {{ x }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="roomSelected.length > 0">
+    <div class="col-md-3 mb-3" *ngFor="let x of roomSelected">
+      <div class="card">
+        <div class="card-body">
+          <div class="mb-3">
+            <h3>ห้อง : {{ x.room_number }}</h3>
+            <h3>หน่วยที่จดครั้งก่อน : 500</h3>
+            <h3>
+              วันที่จดครั้งก่อน :
+              {{
+                service.zeroPad(serverTime.getDay(), 10) +
+                  "/" +
+                  service.zeroPad(serverTime.getMonth() + 1, 10) +
+                  "/" +
+                  (serverTime.getFullYear() + 543)
+              }}
+            </h3>
+          </div>
+          <div>
+            <form
+              #formMeter="ngForm"
+              (ngSubmit)="
+                formMeter.valid
+                  ? updateBill({
+                      room_number: x.room_number,
+                      meter: formMeter.value.meter
+                    })
+                  : service.showAlert(
+                      'ห้อง ' + x.room_number,
+                      'โปรดกรอกข้อมูลให้ถูกต้อง',
+                      'warning'
+                    )
+              "
+            >
+              <mat-form-field appearance="outline">
+                <mat-label>หน่วยล่าสุด</mat-label>
+                <input
+                  matInput
+                  placeholder=""
+                  type="text"
+                  name="meter"
+                  ngModel
+                  required
+                />
+              </mat-form-field>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-sm">
+                  บันทึก
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

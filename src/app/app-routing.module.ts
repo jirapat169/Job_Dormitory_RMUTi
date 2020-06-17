@@ -51,6 +51,14 @@ const routes: Routes = [
               ),
           },
           {
+            path: 'electric-bill',
+            canActivate: [AdminViewGuard],
+            loadChildren: () =>
+              import('./pages/admin/electric-bill/electric-bill.module').then(
+                (m) => m.ElectricBillModule
+              ),
+          },
+          {
             path: 'changepassword',
             loadChildren: () =>
               import('./shared/change-password/change-password.module').then(
@@ -73,7 +81,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

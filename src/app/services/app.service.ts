@@ -16,6 +16,29 @@ export class AppService {
     'http://cpe.rmuti.ac.th/project/dormitory/cost/api/index.php/';
   private userLogin: any = null;
   private showLoading: boolean = false;
+  public month: Array<string> = [
+    'มกราคม',
+    'กุมภาพันธ์',
+    'มีนาคม',
+    'เมษายน',
+    'พฤษภาคม',
+    'มิถุนายน',
+    'กรกฎาคม',
+    'สิงหาคม',
+    'กันยายน',
+    'ตุลาคม',
+    'พฤษจิกายน',
+    'ธันวาคม',
+  ];
+  public day: Array<string> = [
+    'อาทิตย์',
+    'จันทร์',
+    'อังคาร',
+    'พุธ',
+    'พฤหัสบดี',
+    'ศุกร์',
+    'เสาร์',
+  ];
 
   constructor(
     private router: Router,
@@ -182,6 +205,13 @@ export class AppService {
         resolve();
       }, ms);
     });
+  };
+
+  // ---------------------------------------------------- //
+
+  public zeroPad = (nr, base) => {
+    var len = String(base).length - String(nr).length + 1;
+    return len > 0 ? new Array(len).join('0') + nr : nr;
   };
 
   // ---------------------------------------------------- //
