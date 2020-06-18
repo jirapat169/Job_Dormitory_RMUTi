@@ -45,8 +45,19 @@ export class PrivateComponent implements OnInit {
     top.addEventListener('scroll', this.scrollFunction, true);
 
     if (this.service.getUserLogin()['role'] == 'admin') {
+      // เมนู Admin
       if (this.service.getUserLogin()['type_id'] == '1') {
         this.menuList = [
+          {
+            icon: 'fas fa-clipboard',
+            name: 'บันทึกค่ามิเตอร์ไฟฟ้า',
+            path: '/electric-bill',
+          },
+          {
+            icon: 'fas fa-file-medical-alt',
+            name: 'ประวัติค่ามิเตอร์ไฟฟ้า',
+            path: '/history-electric-bill',
+          },
           {
             icon: 'fas fa-users-cog',
             name: 'จัดการบัญชีผู้ใช้',
@@ -57,13 +68,19 @@ export class PrivateComponent implements OnInit {
       } else if (this.service.getUserLogin()['type_id'] == '3') {
         this.menuList = [
           {
-            icon: 'fa fa-bolt',
-            name: 'จัดการมิเตอร์ค่าไฟฟ้า',
+            icon: 'fas fa-clipboard',
+            name: 'บันทึกค่ามิเตอร์ไฟฟ้า',
             path: '/electric-bill',
+          },
+          {
+            icon: 'fas fa-file-medical-alt',
+            name: 'ประวัติค่ามิเตอร์ไฟฟ้า',
+            path: '/history-electric-bill',
           },
         ];
       }
     } else {
+      // เมนู Student
     }
   }
 

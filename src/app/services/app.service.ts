@@ -101,7 +101,8 @@ export class AppService {
           resolve(value);
           if (value.isLogin == false) {
             this.showAlert('', value.message, 'warning');
-            this.navRouter('/login', { oldPath: this.currentRouter });
+            if (this.currentRouter != '/login')
+              this.navRouter('/login', { oldPath: this.currentRouter });
             this.localStorage.clear();
           }
         })
@@ -127,7 +128,8 @@ export class AppService {
           resolve(value);
           if (value.isLogin == false) {
             this.showAlert('', value.message, 'warning');
-            this.navRouter('/login', { oldPath: this.currentRouter });
+            if (this.currentRouter != '/login')
+              this.navRouter('/login', { oldPath: this.currentRouter });
             this.localStorage.clear();
           }
         })

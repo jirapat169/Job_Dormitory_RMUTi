@@ -1,7 +1,7 @@
 <div class="box-padding">
   <div class="row">
     <div class="col-md-5 mb-3">
-      <h1>จัดการมิเตอร์ค่าไฟฟ้า</h1>
+      <h1>บันทึกค่ามิเตอร์ไฟฟ้า</h1>
       <h4>
         {{
           "ประจำเดือน" +
@@ -59,20 +59,56 @@
   </div>
 
   <div class="row" *ngIf="roomSelected.length > 0">
-    <div class="col-md-3 mb-3" *ngFor="let x of roomSelected">
-      <div class="card">
+    <div class="col-md-4 col-lg-3 mb-3" *ngFor="let x of roomSelected">
+      <div
+        class="card {{
+          getMeterBill(
+            x.room_number,
+            service.zeroPad(serverTime.getMonth() + 1, 10) +
+              '/' +
+              serverTime.getFullYear()
+          )
+            ? 'isValueCurrent'
+            : 'noneValueCurrent'
+        }}"
+      >
         <div class="card-body">
           <div class="mb-3">
             <h3>ห้อง : {{ x.room_number }}</h3>
-            <h3>หน่วยที่จดครั้งก่อน : 500</h3>
             <h3>
-              วันที่จดครั้งก่อน :
+              หน่วยที่จดเดือนก่อน :
               {{
-                service.zeroPad(serverTime.getDay(), 10) +
-                  "/" +
-                  service.zeroPad(serverTime.getMonth() + 1, 10) +
-                  "/" +
-                  (serverTime.getFullYear() + 543)
+                getMeterBill(
+                  x.room_number,
+                  service.zeroPad(serverTime.getMonth(), 10) +
+                    "/" +
+                    serverTime.getFullYear()
+                )
+                  ? getMeterBill(
+                      x.room_number,
+                      service.zeroPad(serverTime.getMonth(), 10) +
+                        "/" +
+                        serverTime.getFullYear()
+                    )["value_meter"]
+                  : "-"
+              }}
+            </h3>
+            <h3>
+              วันที่จดเดือนก่อน :
+              {{
+                getMeterBill(
+                  x.room_number,
+                  service.zeroPad(serverTime.getMonth(), 10) +
+                    "/" +
+                    serverTime.getFullYear()
+                )
+                  ? getMeterBill(
+                      x.room_number,
+                      service.zeroPad(serverTime.getMonth(), 10) +
+                        "/" +
+                        serverTime.getFullYear()
+                    )["update_at"].split(" ")[0]
+                  : "-"
               }}
             </h3>
           </div>
@@ -83,7 +119,13 @@
                 formMeter.valid
                   ? updateBill({
                       room_number: x.room_number,
-                      meter: formMeter.value.meter
+                      meter: formMeter.value.meter,
+                      old: getMeterBill(
+                        x.room_number,
+                        service.zeroPad(serverTime.getMonth(), 10) +
+                          '/' +
+                          serverTime.getFullYear()
+                      )
                     })
                   : service.showAlert(
                       'ห้อง ' + x.room_number,
@@ -97,15 +139,33 @@
                 <input
                   matInput
                   placeholder=""
-                  type="text"
+                  type="number"
                   name="meter"
-                  ngModel
+                  [ngModel]="
+                    getMeterBill(
+                      x.room_number,
+                      service.zeroPad(serverTime.getMonth() + 1, 10) +
+                        '/' +
+                        serverTime.getFullYear()
+                    )
+                      ? getMeterBill(
+                          x.room_number,
+                          service.zeroPad(serverTime.getMonth() + 1, 10) +
+                            '/' +
+                            serverTime.getFullYear()
+                        )['value_meter']
+                      : ''
+                  "
                   required
                 />
               </mat-form-field>
 
               <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-sm">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-sm"
+                  [disabled]="formMeter.invalid"
+                >
                   บันทึก
                 </button>
               </div>

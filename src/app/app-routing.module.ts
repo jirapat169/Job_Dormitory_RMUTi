@@ -59,6 +59,14 @@ const routes: Routes = [
               ),
           },
           {
+            path: 'history-electric-bill',
+            canActivate: [AdminViewGuard],
+            loadChildren: () =>
+              import(
+                './pages/admin/history-electric-bill/history-electric-bill.module'
+              ).then((m) => m.HistoryElectricBillModule),
+          },
+          {
             path: 'changepassword',
             loadChildren: () =>
               import('./shared/change-password/change-password.module').then(

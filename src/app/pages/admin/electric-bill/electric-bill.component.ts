@@ -1,5 +1,6 @@
 import { AppService } from './../../../services/app.service';
 import { Component, OnInit } from '@angular/core';
+import { Form, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-electric-bill',
@@ -9,17 +10,38 @@ import { Component, OnInit } from '@angular/core';
 export class ElectricBillComponent implements OnInit {
   public serverTime: Date = new Date();
   public allRoom: Array<any> = [];
+  public currentBill: Array<any> = [];
   public buildSelect: string = '1';
   public floorSelect: string = '2';
   public roomSelected: Array<any> = [];
 
-  constructor(public service: AppService) {}
+  constructor(public service: AppService) {
+    this.service.setHeaderPage('electric-bill', 'บันทึกค่ามิเตอร์ไฟฟ้า');
+  }
 
   async ngOnInit() {
     this.serverTime = await this.getServerTime();
     this.allRoom = await this.getRoom();
+    this.currentBill = await this.getCurrentMeter();
     this.selectRoom();
   }
+
+  private getCurrentMeter = (): Promise<any> => {
+    return new Promise((resolve) => {
+      this.service
+        .httpGet(
+          `/admin/getCurrentMeter/${this.service.zeroPad(
+            this.serverTime.getMonth() + 1,
+            10
+          )}/${this.serverTime.getFullYear()}?token=${
+            this.service.getUserLogin()['token']
+          }`
+        )
+        .then((value: any) => {
+          resolve(value.result);
+        });
+    });
+  };
 
   private getServerTime = (): any => {
     return new Promise((resolve) => {
@@ -36,7 +58,9 @@ export class ElectricBillComponent implements OnInit {
   private getRoom = (): any => {
     return new Promise((resolve) => {
       this.service
-        .httpGet(`/admin/getRoom?token=${this.service.getUserLogin()['token']}`)
+        .httpGet(
+          `/support/getRoom?token=${this.service.getUserLogin()['token']}`
+        )
         .then((value: any) => {
           if (value.result.result.length > 0) {
             resolve(value.result.result); // room_number
@@ -60,6 +84,57 @@ export class ElectricBillComponent implements OnInit {
   };
 
   public updateBill = (data: any) => {
-    console.log(data);
+    let rawData = {
+      room_number: data.room_number,
+      value_meter: data.meter,
+      month_read: `${this.service.zeroPad(
+        this.serverTime.getMonth() + 1,
+        10
+      )}/${this.serverTime.getFullYear()}`,
+      user_edit: this.service.getUserLogin()['username'],
+    };
+
+    if (data.old) {
+      if (data.meter >= parseInt(data.old.value_meter)) {
+        this.service
+          .httpPost(
+            `/admin/setCurrentMeter?token=${
+              this.service.getUserLogin()['token']
+            }`,
+            JSON.stringify(rawData)
+          )
+          .then(async (value: any) => {
+            if (value) {
+              this.currentBill = await this.getCurrentMeter();
+            }
+          });
+      } else {
+        this.service.showAlert(
+          data.room_number,
+          'โปรดกรอกข้อมูลให้ถูกต้อง',
+          'warning'
+        );
+      }
+    } else {
+      this.service
+        .httpPost(
+          `/admin/setCurrentMeter?token=${
+            this.service.getUserLogin()['token']
+          }`,
+          JSON.stringify(rawData)
+        )
+        .then(async (value: any) => {
+          if (value) {
+            this.currentBill = await this.getCurrentMeter();
+          }
+        });
+    }
+  };
+
+  public getMeterBill = (room_number: string, month_read: string) => {
+    let bill = this.currentBill.filter((el) => {
+      return el.room_number == room_number && el.month_read == month_read;
+    });
+    return bill.length > 0 ? bill[0] : null;
   };
 }
