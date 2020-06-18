@@ -1,1 +1,1 @@
-[{"route":"/login"},{"route":"/register"},{"route":"/forget-password"},{"route":"/home"},{"route":"/usermanager/admin"},{"route":"/usermanager/student"},{"route":"/usermanager"},{"route":"/electric-bill"},{"route":"/changepassword"},{"route":"/"}]
+[{"route":"/login"},{"route":"/register"},{"route":"/forget-password"},{"route":"/home"},{"route":"/usermanager/admin"},{"route":"/usermanager/student"},{"route":"/usermanager"},{"route":"/electric-bill"},{"route":"/history-electric-bill"},{"route":"/changepassword"},{"route":"/"}]

@@ -101,7 +101,7 @@ export class AppService {
           resolve(value);
           if (value.isLogin == false) {
             this.showAlert('', value.message, 'warning');
-            if (this.currentRouter != '/login')
+            if (!this.currentRouter.includes('/login'))
               this.navRouter('/login', { oldPath: this.currentRouter });
             this.localStorage.clear();
           }
@@ -128,7 +128,7 @@ export class AppService {
           resolve(value);
           if (value.isLogin == false) {
             this.showAlert('', value.message, 'warning');
-            if (this.currentRouter != '/login')
+            if (!this.currentRouter.includes('/login'))
               this.navRouter('/login', { oldPath: this.currentRouter });
             this.localStorage.clear();
           }
