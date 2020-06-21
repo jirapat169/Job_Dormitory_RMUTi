@@ -49,6 +49,11 @@ export class PrivateComponent implements OnInit {
       if (this.service.getUserLogin()['type_id'] == '1') {
         this.menuList = [
           {
+            icon: 'fas fa-user-tag',
+            name: 'ค่าใช้จ่ายของนักศึกษา',
+            path: '/student-cost',
+          },
+          {
             icon: 'fas fa-clipboard',
             name: 'บันทึกค่ามิเตอร์ไฟฟ้า',
             path: '/electric-bill',
@@ -65,6 +70,13 @@ export class PrivateComponent implements OnInit {
           },
         ];
       } else if (this.service.getUserLogin()['type_id'] == '2') {
+        this.menuList = [
+          {
+            icon: 'fas fa-user-tag',
+            name: 'ค่าใช้จ่ายของนักศึกษา',
+            path: '/student-cost',
+          },
+        ];
       } else if (this.service.getUserLogin()['type_id'] == '3') {
         this.menuList = [
           {

@@ -67,6 +67,14 @@ const routes: Routes = [
               ).then((m) => m.HistoryElectricBillModule),
           },
           {
+            path: 'student-cost',
+            canActivate: [AdminViewGuard],
+            loadChildren: () =>
+              import('./pages/admin/student-cost/student-cost.module').then(
+                (m) => m.StudentCostModule
+              ),
+          },
+          {
             path: 'changepassword',
             loadChildren: () =>
               import('./shared/change-password/change-password.module').then(

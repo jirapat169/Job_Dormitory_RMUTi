@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-4">
+    <form
+      #formSearchStudent="ngForm"
+      (ngSubmit)="
+        formSearchStudent.valid
+          ? searchStudent(formSearchStudent.value.studentId)
+          : ''
+      "
+    >
+      <table class="table table-sm table-borderless">
+        <tbody>
+          <tr>
+            <td style="vertical-align: middle; align-items: center;">
+              <mat-form-field appearance="outline">
+                <mat-label>รหัสนักศึกษา</mat-label>
+                <input
+                  matInput
+                  placeholder=""
+                  type="text"
+                  name="studentId"
+                  ngModel
+                  required
+                />
+              </mat-form-field>
+            </td>
+            <td style="vertical-align: middle; align-items: center;">
+              <button type="submit" class="btn btn-primary">
+                ค้นหา
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>
+
+<div class="card" *ngIf="studentSearchData">
+  <div class="card-body">
+    <h3>รหัสนักศึกษา&nbsp;:&nbsp;{{ studentSearchData.std_code }}</h3>
+    <h3>
+      ชื่อ&nbsp;:&nbsp;{{ studentSearchData.nameTitle
+      }}{{ studentSearchData.fname }}&nbsp;{{ studentSearchData.lname }}
+    </h3>
+    <h3>ห้องพัก&nbsp;:&nbsp;{{ studentSearchData.room_number }}</h3>
+  </div>
+</div>
