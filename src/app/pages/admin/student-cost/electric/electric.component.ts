@@ -7,7 +7,7 @@ import { AppService } from 'src/app/services/app.service';
   styleUrls: ['./electric.component.scss'],
 })
 export class ElectricComponent implements OnInit {
-  public roomSearchData: any = null;
+  public roomSearchData: Array<any> = [];
 
   constructor(public service: AppService) {
     this.service.setHeaderPage('student-cost/electric', 'ค่าไฟประจำเดือน');
@@ -16,6 +16,7 @@ export class ElectricComponent implements OnInit {
   ngOnInit() {}
 
   public searchRoom = (roomNumber: string) => {
+    this.roomSearchData = [];
     this.service
       .httpGet(
         `/admin/searchRoom/${roomNumber}?token=${
@@ -33,5 +34,15 @@ export class ElectricComponent implements OnInit {
           }
         }
       });
+  };
+
+  public getOldMonth = (month: string) => {
+    return this.roomSearchData.filter((el) => {
+      return el.month_read < month;
+    }).length > 0
+      ? this.roomSearchData.filter((el) => {
+          return el.month_read < month;
+        })[0]
+      : null;
   };
 }

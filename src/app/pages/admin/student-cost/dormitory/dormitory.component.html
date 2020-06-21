@@ -38,11 +38,173 @@
 
 <div class="card" *ngIf="studentSearchData">
   <div class="card-body">
-    <h3>รหัสนักศึกษา&nbsp;:&nbsp;{{ studentSearchData.std_code }}</h3>
-    <h3>
-      ชื่อ&nbsp;:&nbsp;{{ studentSearchData.nameTitle
-      }}{{ studentSearchData.fname }}&nbsp;{{ studentSearchData.lname }}
-    </h3>
-    <h3>ห้องพัก&nbsp;:&nbsp;{{ studentSearchData.room_number }}</h3>
+    <div class="mb-3">
+      <h3>รหัสนักศึกษา&nbsp;:&nbsp;{{ studentSearchData.std_code }}</h3>
+      <h3>
+        ชื่อ&nbsp;:&nbsp;{{ studentSearchData.nameTitle
+        }}{{ studentSearchData.fname }}&nbsp;{{ studentSearchData.lname }}
+      </h3>
+      <h3>
+        ห้องพัก&nbsp;:&nbsp;{{ studentSearchData.room_number }} ({{
+          studentSearchData.room_number.charAt(1) == "8"
+            ? "ห้องแอร์"
+            : "ห้องพัดลม"
+        }})
+      </h3>
+    </div>
+
+    <div class="mb-3">
+      <h3>ภาคเรียนที่ 1</h3>
+      <table class="table table-sm table-borderless table-hover">
+        <thead>
+          <tr>
+            <th scope="col">รายการ</th>
+            <th scope="col">จำนวนเงิน</th>
+            <th scope="col">จำนวนที่ชำระ</th>
+            <th scope="col">สถานะ</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="vertical-align: middle;">ค่าหอพัก</td>
+            <td style="vertical-align: middle;">5,500</td>
+            <td style="vertical-align: middle;">
+              <input type="text" class="form-control" />
+            </td>
+            <td style="vertical-align: middle;">
+              ค้างชำระ
+            </td>
+            <td style="vertical-align: middle;">
+              <button type="button" class="btn btn-primary btn-sm">
+                บันทึก
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">ค่าประกันหอพัก</td>
+            <td style="vertical-align: middle;">500</td>
+            <td style="vertical-align: middle;">
+              <input type="text" class="form-control" />
+            </td>
+            <td style="vertical-align: middle;">
+              ค้างชำระ
+            </td>
+            <td style="vertical-align: middle;">
+              <button type="button" class="btn btn-primary btn-sm">
+                บันทึก
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">ค่าไฟฟ้าล่วงหน้า</td>
+            <td style="vertical-align: middle;">500</td>
+            <td style="vertical-align: middle;">
+              <input type="text" class="form-control" />
+            </td>
+            <td style="vertical-align: middle;">
+              ค้างชำระ
+            </td>
+            <td style="vertical-align: middle;">
+              <button type="button" class="btn btn-primary btn-sm">
+                บันทึก
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">ค่าน้ำเหมาจ่าย</td>
+            <td style="vertical-align: middle;">400</td>
+            <td style="vertical-align: middle;">
+              <input type="text" class="form-control" />
+            </td>
+            <td style="vertical-align: middle;">
+              ค้างชำระ
+            </td>
+            <td style="vertical-align: middle;">
+              <button type="button" class="btn btn-primary btn-sm">
+                บันทึก
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mb-3">
+      <h3>ภาคเรียนที่ 1</h3>
+      <table class="table table-sm table-borderless table-hover">
+        <thead>
+          <tr>
+            <th scope="col">รายการ</th>
+            <th scope="col">จำนวนเงิน</th>
+            <th scope="col">จำนวนที่ชำระ</th>
+            <th scope="col">สถานะ</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="vertical-align: middle;">ค่าหอพัก</td>
+            <td style="vertical-align: middle;">5,500</td>
+            <td style="vertical-align: middle;">
+              <input type="text" class="form-control" />
+            </td>
+            <td style="vertical-align: middle;">
+              ค้างชำระ
+            </td>
+            <td style="vertical-align: middle;">
+              <button type="button" class="btn btn-primary btn-sm">
+                บันทึก
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">ค่าประกันหอพัก</td>
+            <td style="vertical-align: middle;">500</td>
+            <td style="vertical-align: middle;">
+              <input type="text" class="form-control" />
+            </td>
+            <td style="vertical-align: middle;">
+              ค้างชำระ
+            </td>
+            <td style="vertical-align: middle;">
+              <button type="button" class="btn btn-primary btn-sm">
+                บันทึก
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">ค่าไฟฟ้าล่วงหน้า</td>
+            <td style="vertical-align: middle;">500</td>
+            <td style="vertical-align: middle;">
+              <input type="text" class="form-control" />
+            </td>
+            <td style="vertical-align: middle;">
+              ค้างชำระ
+            </td>
+            <td style="vertical-align: middle;">
+              <button type="button" class="btn btn-primary btn-sm">
+                บันทึก
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">ค่าน้ำเหมาจ่าย</td>
+            <td style="vertical-align: middle;">400</td>
+            <td style="vertical-align: middle;">
+              <input type="text" class="form-control" />
+            </td>
+            <td style="vertical-align: middle;">
+              ค้างชำระ
+            </td>
+            <td style="vertical-align: middle;">
+              <button type="button" class="btn btn-primary btn-sm">
+                บันทึก
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
