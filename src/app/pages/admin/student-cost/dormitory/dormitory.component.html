@@ -54,7 +54,7 @@
     </div>
 
     <div class="mb-3">
-      <h3>ภาคเรียนที่ 1</h3>
+      <h3 class="mb-3">ภาคเรียนที่ 1</h3>
       <table class="table table-sm table-borderless table-hover">
         <thead>
           <tr>
@@ -68,7 +68,19 @@
         <tbody>
           <tr>
             <td style="vertical-align: middle;">ค่าหอพัก</td>
-            <td style="vertical-align: middle;">5,500</td>
+            <td style="vertical-align: middle;">
+              {{
+                searchCost(
+                  "1",
+                  studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                ).length > 0
+                  ? searchCost(
+                      "1",
+                      studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                    )[0]["dormitory"]
+                  : "0"
+              }}
+            </td>
             <td style="vertical-align: middle;">
               <input type="text" class="form-control" />
             </td>
@@ -83,7 +95,19 @@
           </tr>
           <tr>
             <td style="vertical-align: middle;">ค่าประกันหอพัก</td>
-            <td style="vertical-align: middle;">500</td>
+            <td style="vertical-align: middle;">
+              {{
+                searchCost(
+                  "1",
+                  studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                ).length > 0
+                  ? searchCost(
+                      "1",
+                      studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                    )[0]["insurance"]
+                  : "0"
+              }}
+            </td>
             <td style="vertical-align: middle;">
               <input type="text" class="form-control" />
             </td>
@@ -98,7 +122,19 @@
           </tr>
           <tr>
             <td style="vertical-align: middle;">ค่าไฟฟ้าล่วงหน้า</td>
-            <td style="vertical-align: middle;">500</td>
+            <td style="vertical-align: middle;">
+              {{
+                searchCost(
+                  "1",
+                  studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                ).length > 0
+                  ? searchCost(
+                      "1",
+                      studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                    )[0]["electric_first"]
+                  : "0"
+              }}
+            </td>
             <td style="vertical-align: middle;">
               <input type="text" class="form-control" />
             </td>
@@ -113,7 +149,19 @@
           </tr>
           <tr>
             <td style="vertical-align: middle;">ค่าน้ำเหมาจ่าย</td>
-            <td style="vertical-align: middle;">400</td>
+            <td style="vertical-align: middle;">
+              {{
+                searchCost(
+                  "1",
+                  studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                ).length > 0
+                  ? searchCost(
+                      "1",
+                      studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                    )[0]["water_first"]
+                  : "0"
+              }}
+            </td>
             <td style="vertical-align: middle;">
               <input type="text" class="form-control" />
             </td>
@@ -131,7 +179,7 @@
     </div>
 
     <div class="mb-3">
-      <h3>ภาคเรียนที่ 1</h3>
+      <h3 class="mb-3">ภาคเรียนที่ 2</h3>
       <table class="table table-sm table-borderless table-hover">
         <thead>
           <tr>
@@ -145,7 +193,19 @@
         <tbody>
           <tr>
             <td style="vertical-align: middle;">ค่าหอพัก</td>
-            <td style="vertical-align: middle;">5,500</td>
+            <td style="vertical-align: middle;">
+              {{
+                searchCost(
+                  "2",
+                  studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                ).length > 0
+                  ? searchCost(
+                      "2",
+                      studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                    )[0]["dormitory"]
+                  : "0"
+              }}
+            </td>
             <td style="vertical-align: middle;">
               <input type="text" class="form-control" />
             </td>
@@ -160,7 +220,19 @@
           </tr>
           <tr>
             <td style="vertical-align: middle;">ค่าประกันหอพัก</td>
-            <td style="vertical-align: middle;">500</td>
+            <td style="vertical-align: middle;">
+              {{
+                searchCost(
+                  "2",
+                  studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                ).length > 0
+                  ? searchCost(
+                      "2",
+                      studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                    )[0]["insurance"]
+                  : "0"
+              }}
+            </td>
             <td style="vertical-align: middle;">
               <input type="text" class="form-control" />
             </td>
@@ -175,7 +247,19 @@
           </tr>
           <tr>
             <td style="vertical-align: middle;">ค่าไฟฟ้าล่วงหน้า</td>
-            <td style="vertical-align: middle;">500</td>
+            <td style="vertical-align: middle;">
+              {{
+                searchCost(
+                  "2",
+                  studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                ).length > 0
+                  ? searchCost(
+                      "2",
+                      studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                    )[0]["electric_first"]
+                  : "0"
+              }}
+            </td>
             <td style="vertical-align: middle;">
               <input type="text" class="form-control" />
             </td>
@@ -190,7 +274,19 @@
           </tr>
           <tr>
             <td style="vertical-align: middle;">ค่าน้ำเหมาจ่าย</td>
-            <td style="vertical-align: middle;">400</td>
+            <td style="vertical-align: middle;">
+              {{
+                searchCost(
+                  "2",
+                  studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                ).length > 0
+                  ? searchCost(
+                      "2",
+                      studentSearchData.room_number.charAt(1) == "8" ? "2" : 1
+                    )[0]["water_first"]
+                  : "0"
+              }}
+            </td>
             <td style="vertical-align: middle;">
               <input type="text" class="form-control" />
             </td>
