@@ -84,51 +84,61 @@ export class ElectricBillComponent implements OnInit {
   };
 
   public updateBill = (data: any) => {
-    let rawData = {
-      room_number: data.room_number,
-      value_meter: data.meter,
-      month_read: `${this.service.zeroPad(
-        this.serverTime.getMonth() + 1,
-        10
-      )}/${this.serverTime.getFullYear()}`,
-      user_edit: this.service.getUserLogin()['username'],
-    };
+    this.service
+      .showConfirm(
+        `ห้อง ${data.room_number}`,
+        'หากบันทึกข้อมูลแล้วจะไม่สามารถแก้ไขได้',
+        'warning'
+      )
+      .then((value: boolean) => {
+        if (value) {
+          let rawData = {
+            room_number: data.room_number,
+            value_meter: data.meter,
+            month_read: `${this.service.zeroPad(
+              this.serverTime.getMonth() + 1,
+              10
+            )}/${this.serverTime.getFullYear()}`,
+            user_edit: this.service.getUserLogin()['username'],
+          };
 
-    if (data.old) {
-      if (data.meter >= parseInt(data.old.value_meter)) {
-        this.service
-          .httpPost(
-            `/admin/setCurrentMeter?token=${
-              this.service.getUserLogin()['token']
-            }`,
-            JSON.stringify(rawData)
-          )
-          .then(async (value: any) => {
-            if (value) {
-              this.currentBill = await this.getCurrentMeter();
+          if (data.old) {
+            if (data.meter >= parseInt(data.old.value_meter)) {
+              this.service
+                .httpPost(
+                  `/admin/setCurrentMeter?token=${
+                    this.service.getUserLogin()['token']
+                  }`,
+                  JSON.stringify(rawData)
+                )
+                .then(async (value: any) => {
+                  if (value) {
+                    this.currentBill = await this.getCurrentMeter();
+                  }
+                });
+            } else {
+              this.service.showAlert(
+                data.room_number,
+                'โปรดกรอกข้อมูลให้ถูกต้อง',
+                'warning'
+              );
             }
-          });
-      } else {
-        this.service.showAlert(
-          data.room_number,
-          'โปรดกรอกข้อมูลให้ถูกต้อง',
-          'warning'
-        );
-      }
-    } else {
-      this.service
-        .httpPost(
-          `/admin/setCurrentMeter?token=${
-            this.service.getUserLogin()['token']
-          }`,
-          JSON.stringify(rawData)
-        )
-        .then(async (value: any) => {
-          if (value) {
-            this.currentBill = await this.getCurrentMeter();
+          } else {
+            this.service
+              .httpPost(
+                `/admin/setCurrentMeter?token=${
+                  this.service.getUserLogin()['token']
+                }`,
+                JSON.stringify(rawData)
+              )
+              .then(async (value: any) => {
+                if (value) {
+                  this.currentBill = await this.getCurrentMeter();
+                }
+              });
           }
-        });
-    }
+        }
+      });
   };
 
   public getMeterBill = (room_number: string, month_read: string) => {

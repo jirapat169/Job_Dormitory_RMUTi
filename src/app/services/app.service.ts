@@ -47,6 +47,12 @@ export class AppService {
     private metaService: Meta
   ) {}
 
+  public strToInt = (value: string) => {
+    return parseInt(value);
+  };
+
+  // ---------------------------------------------------- //
+
   public getRouter = (callback: (arg0: string) => void) => {
     this.currentRouterSubscribe = this.router.events;
     callback(this.currentRouter);

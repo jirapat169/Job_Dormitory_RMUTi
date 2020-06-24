@@ -113,6 +113,26 @@
             </h3>
           </div>
           <div>
+            <input
+              #currentBill
+              type="hidden"
+              [value]="
+                getMeterBill(
+                  x.room_number,
+                  service.zeroPad(serverTime.getMonth() + 1, 10) +
+                    '/' +
+                    serverTime.getFullYear()
+                )
+                  ? getMeterBill(
+                      x.room_number,
+                      service.zeroPad(serverTime.getMonth() + 1, 10) +
+                        '/' +
+                        serverTime.getFullYear()
+                    )['value_meter']
+                  : ''
+              "
+            />
+
             <form
               #formMeter="ngForm"
               (ngSubmit)="
@@ -141,30 +161,19 @@
                   placeholder=""
                   type="number"
                   name="meter"
-                  [ngModel]="
-                    getMeterBill(
-                      x.room_number,
-                      service.zeroPad(serverTime.getMonth() + 1, 10) +
-                        '/' +
-                        serverTime.getFullYear()
-                    )
-                      ? getMeterBill(
-                          x.room_number,
-                          service.zeroPad(serverTime.getMonth() + 1, 10) +
-                            '/' +
-                            serverTime.getFullYear()
-                        )['value_meter']
-                      : ''
-                  "
+                  [ngModel]="currentBill.value"
                   required
+                  readonly="{{ currentBill.value ? true : false }}"
                 />
               </mat-form-field>
 
-              <div class="text-center">
+              <div class="text-center mt-3">
                 <button
                   type="submit"
                   class="btn btn-primary btn-sm"
-                  [disabled]="formMeter.invalid"
+                  [disabled]="
+                    formMeter.invalid ? false : currentBill.value ? true : false
+                  "
                 >
                   บันทึก
                 </button>
