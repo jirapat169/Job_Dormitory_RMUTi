@@ -81,7 +81,7 @@
             <!-- {{ getMeterInRoom(x.room_number) | json }} -->
             <div class="mb-3" *ngFor="let xx of getMeterInRoom(x.room_number)">
               <p>เดือน : {{ xx.month_read }}</p>
-              <p>หน่วยไฟฟ้า : {{ xx.value_meter }}</p>
+              <p>หน่วยไฟฟ้า : {{ xx.value_meter }}&nbsp;หน่วย</p>
               <!-- <p>เวลาที่บันทึก : {{ xx.update_at }}</p>
               <p>ผู้บันทึก : {{ xx.fname + " " + xx.lname }}</p> -->
             </div>

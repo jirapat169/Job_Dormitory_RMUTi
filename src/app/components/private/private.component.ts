@@ -54,6 +54,11 @@ export class PrivateComponent implements OnInit {
             path: '/student-cost',
           },
           {
+            icon: 'fas fa-dollar-sign',
+            name: 'จัดการรายการค่าใช้จ่าย',
+            path: '/cost-manage',
+          },
+          {
             icon: 'fas fa-clipboard',
             name: 'บันทึกค่ามิเตอร์ไฟฟ้า',
             path: '/electric-bill',
@@ -75,6 +80,11 @@ export class PrivateComponent implements OnInit {
             icon: 'fas fa-user-tag',
             name: 'ค่าใช้จ่ายของนักศึกษา',
             path: '/student-cost',
+          },
+          {
+            icon: 'fas fa-dollar-sign',
+            name: 'จัดการรายการค่าใช้จ่าย',
+            path: '/cost-manage',
           },
         ];
       } else if (this.service.getUserLogin()['type_id'] == '3') {

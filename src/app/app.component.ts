@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.service.getRouter((value: string) => {
       console.log(value);
     });

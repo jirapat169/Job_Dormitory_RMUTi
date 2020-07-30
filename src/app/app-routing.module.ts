@@ -75,6 +75,14 @@ const routes: Routes = [
               ),
           },
           {
+            path: 'cost-manage',
+            canActivate: [AdminViewGuard],
+            loadChildren: () =>
+              import('./pages/admin/cost-manage/cost-manage.module').then(
+                (m) => m.CostManageModule
+              ),
+          },
+          {
             path: 'changepassword',
             loadChildren: () =>
               import('./shared/change-password/change-password.module').then(
