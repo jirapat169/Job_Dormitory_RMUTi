@@ -70,15 +70,15 @@
                 getOldMonth(x.month_read)
                   ? getOldMonth(x.month_read)["value_meter"]
                   : 0
-              }}
+              }}&nbsp;หน่วย
             </h3>
-            <h3>เลขที่จดครั้งหลัง : {{ x.value_meter }}</h3>
-            <h3>จำนวนหน่วยที่ใช้ : {{ x.electric_cost_unit }}</h3>
-            <h3>ค่าไฟคงเหลือที่ยกยอดมา : {{ x.electric_cost_old }}</h3>
-            <h3>ค่าไฟฟ้าประจำเดือน : {{ x.electric_cost_month }}</h3>
-            <h3>ค่าไฟคงเหลือยกยอดไป : {{ x.electric_cost_left }}</h3>
+            <h3>เลขที่จดครั้งหลัง : {{ x.value_meter }}&nbsp;หน่วย</h3>
+            <h3>จำนวนหน่วยที่ใช้ : {{ x.electric_cost_unit }}&nbsp;หน่วย</h3>
+            <h3>ค่าไฟคงเหลือที่ยกยอดมา : {{ x.electric_cost_old }}&nbsp;บาท</h3>
+            <h3>ค่าไฟฟ้าประจำเดือน : {{ x.electric_cost_month }}&nbsp;บาท</h3>
+            <h3>ค่าไฟคงเหลือยกยอดไป : {{ x.electric_cost_left }}&nbsp;บาท</h3>
             <h3 class="text-danger">
-              ค่าไฟที่ต้องชำระเพิ่ม : {{ x.electric_cost_add }}
+              ค่าไฟที่ต้องชำระเพิ่ม : {{ x.electric_cost_add }}&nbsp;บาท
             </h3>
 
             <h3>วันที่บันทึกหน่วยมิเตอร์ : {{ x.update_at }}</h3>
