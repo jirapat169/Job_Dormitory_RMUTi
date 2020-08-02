@@ -11,7 +11,12 @@ export class FanComponent implements OnInit {
   public formCostTerm1: FormGroup;
   public formCostTerm2: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public service: AppService) {}
+  constructor(private formBuilder: FormBuilder, public service: AppService) {
+    this.service.setHeaderPage(
+      'cost-manage/fan',
+      'จัดการรายการค่าใช้จ่าย (ห้องพัดลม)'
+    );
+  }
 
   ngOnInit(): void {
     this.formCostTerm1 = this.formBuilder.group({
@@ -35,13 +40,73 @@ export class FanComponent implements OnInit {
       term: ['', Validators.required],
       water_first: ['', Validators.required],
     });
+
+    this.onLoadData();
   }
 
+  private onLoadData = () => {
+    this.service
+      .httpGet(
+        `admin/getCostValue?token=${this.service.getUserLogin()['token']}`
+      )
+      .then((val: any) => {
+        console.log(val);
+        if (val.rowCount > 0) {
+          val.result
+            .filter((e) => {
+              return e.room_type == '1';
+            })
+            .forEach((element) => {
+              if (element.term == '1')
+                this.formCostTerm1.patchValue({ ...element });
+              else if (element.term == '2')
+                this.formCostTerm2.patchValue({ ...element });
+            });
+        }
+      });
+  };
+
   public onSubmitTerm1 = () => {
-    console.log(this.formCostTerm1.value);
+    this.service
+      .showConfirm(`ยืนยันการบันทึก`, `ภาคเรียนที่ 1`, 'warning')
+      .then((val) => {
+        if (val) {
+          this.service
+            .httpPost(
+              `admin/setCostValue?token=${
+                this.service.getUserLogin()['token']
+              }`,
+              JSON.stringify(this.formCostTerm1.value)
+            )
+            .then((val) => {
+              console.log(val);
+            })
+            .finally(() => {
+              this.onLoadData();
+            });
+        }
+      });
   };
 
   public onSubmitTerm2 = () => {
-    console.log(this.formCostTerm2.value);
+    this.service
+      .showConfirm(`ยืนยันการบันทึก`, `ภาคเรียนที่ 2`, 'warning')
+      .then((val) => {
+        if (val) {
+          this.service
+            .httpPost(
+              `admin/setCostValue?token=${
+                this.service.getUserLogin()['token']
+              }`,
+              JSON.stringify(this.formCostTerm2.value)
+            )
+            .then((val) => {
+              console.log(val);
+            })
+            .finally(() => {
+              this.onLoadData();
+            });
+        }
+      });
   };
 }
