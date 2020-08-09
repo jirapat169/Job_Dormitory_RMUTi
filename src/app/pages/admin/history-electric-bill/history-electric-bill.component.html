@@ -6,7 +6,18 @@
 
     <div class="col-md-7 mb-3">
       <div class="row">
-        <div class="col-md"></div>
+        <div class="col-md">
+          <mat-form-field appearance="outline">
+            <mat-label>เดือน</mat-label>
+            <mat-select [(value)]="monthSelect">
+              <mat-option *ngFor="let x of allMonth" [value]="x">
+                {{ service.month[service.strToInt(x.split("/")[0]) - 1] }}
+                {{ service.strToInt(x.split("/")[1]) + 543 }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
         <div class="col-md">
           <mat-form-field appearance="outline">
             <mat-label>หอพัก</mat-label>
@@ -50,7 +61,7 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="roomSelected.length > 0" id="accordionExample">
+  <!-- <div class="row" *ngIf="roomSelected.length > 0" id="accordionExample">
     <div
       class="col-md-4 col-lg-3 mb-3"
       *ngFor="let x of roomSelected; let i = index"
@@ -78,16 +89,63 @@
           data-parent="#accordionExample"
         >
           <div class="card-body">
-            <!-- {{ getMeterInRoom(x.room_number) | json }} -->
+    
             <div class="mb-3" *ngFor="let xx of getMeterInRoom(x.room_number)">
               <p>เดือน : {{ xx.month_read }}</p>
               <p>หน่วยไฟฟ้า : {{ xx.value_meter }}&nbsp;หน่วย</p>
-              <!-- <p>เวลาที่บันทึก : {{ xx.update_at }}</p>
-              <p>ผู้บันทึก : {{ xx.fname + " " + xx.lname }}</p> -->
+
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div> -->
+
+  <div class="card">
+    <div class="card-body">
+      <table
+        class="table table-bordered table-sm table-hover"
+        *ngIf="roomSelected.length > 0"
+      >
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">หมายเลขห้อง</th>
+            <th scope="col">หน่วยมิเตอร์ไฟฟ้า</th>
+            <th scope="col">ผู้จดบันทึก</th>
+            <!-- <th scope="col">วันที่บันทึก</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of roomSelected; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ x.room_number }}</td>
+            <td>
+              {{
+                getMeterInRoom(x.room_number).length > 0
+                  ? getMeterInRoom(x.room_number)[0]["value_meter"] + " หน่วย"
+                  : "-"
+              }}
+            </td>
+            <td>
+              {{
+                getMeterInRoom(x.room_number).length > 0
+                  ? getMeterInRoom(x.room_number)[0]["fname"] +
+                    " " +
+                    getMeterInRoom(x.room_number)[0]["lname"]
+                  : "-"
+              }}
+            </td>
+            <!-- <td>
+              {{
+                getMeterInRoom(x.room_number).length > 0
+                  ? getMeterInRoom(x.room_number)[0]["update_at"]
+                  : "-"
+              }}
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

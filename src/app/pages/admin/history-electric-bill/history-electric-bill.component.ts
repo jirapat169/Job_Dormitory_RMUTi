@@ -11,7 +11,9 @@ export class HistoryElectricBillComponent implements OnInit {
   public allMeter: Array<any> = [];
   public buildSelect: string = '1';
   public floorSelect: string = '2';
+  public monthSelect: string = '';
   public roomSelected: Array<any> = [];
+  public allMonth: Array<any> = [];
 
   constructor(public service: AppService) {
     this.service.setHeaderPage(
@@ -50,6 +52,14 @@ export class HistoryElectricBillComponent implements OnInit {
         )
         .then((value: any) => {
           resolve(value.result);
+          if (value.result.length > 0) {
+            let month = [];
+            value.result.forEach((element) => {
+              month.push(element['month_read']);
+            });
+            this.allMonth = Array.from(new Set(month));
+            this.monthSelect = this.allMonth[this.allMonth.length - 1];
+          }
         });
     });
   };
@@ -68,7 +78,7 @@ export class HistoryElectricBillComponent implements OnInit {
 
   public getMeterInRoom = (room_number: string) => {
     return this.allMeter.filter((el) => {
-      return el.room_number == room_number;
+      return el.room_number == room_number && el.month_read == this.monthSelect;
     });
   };
 }
