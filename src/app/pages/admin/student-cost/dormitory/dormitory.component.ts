@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dormitory',
@@ -8,15 +9,268 @@ import { AppService } from 'src/app/services/app.service';
 })
 export class DormitoryComponent implements OnInit {
   public studentSearchData: any = null;
+  public studentId: string = '';
   public costValue: Array<any> = [];
+  public formTerm1: FormGroup;
+  public formTerm2: FormGroup;
+  public studentCost: Array<any> = [];
+  public studentCostTerm1: {
+    dorimitory: number;
+    electric_first: number;
+    water_first: number;
+    insurance: number;
+  } = {
+    dorimitory: 0,
+    electric_first: 0,
+    water_first: 0,
+    insurance: 0,
+  };
+  public studentCostTerm2: {
+    dorimitory: number;
+    electric_first: number;
+    water_first: number;
+    insurance: number;
+  } = {
+    dorimitory: 0,
+    electric_first: 0,
+    water_first: 0,
+    insurance: 0,
+  };
 
-  constructor(public service: AppService) {
+  constructor(public service: AppService, private formBuilder: FormBuilder) {
     this.service.setHeaderPage('student-cost/dormitory', 'ค่าใช้จ่ายหอพัก');
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCostValue();
+    this.formTerm1 = this.formBuilder.group({
+      receiptNumber: [''],
+      term: ['1'],
+      studentId: ['', Validators.required],
+      dorimitory: [0, Validators.required],
+      electric_first: [0, Validators.required],
+      water_first: [0, Validators.required],
+      insurance: [0, Validators.required],
+      cashier: [this.service.getUserLogin()['username'], Validators.required],
+    });
+
+    this.formTerm2 = this.formBuilder.group({
+      receiptNumber: [''],
+      term: ['2'],
+      studentId: ['', Validators.required],
+      dorimitory: [0, Validators.required],
+      electric_first: [0, Validators.required],
+      water_first: [0, Validators.required],
+      insurance: [0, Validators.required],
+      cashier: [this.service.getUserLogin()['username'], Validators.required],
+    });
+  }
+
+  public onSubmitTerm1 = () => {
+    let thisTime = new Date().getTime().toString();
+    let ramdomVal = Math.random().toString().split('.').pop();
+    this.formTerm1.patchValue({
+      receiptNumber: `${ramdomVal.substring(
+        ramdomVal.length - 4,
+        ramdomVal.length - 1
+      )}${thisTime.substring(thisTime.length - 8, thisTime.length - 1)}`,
+    });
+
+    if (this.formTerm1.valid) {
+      if (
+        this.formTerm1.value.dorimitory <= 0 &&
+        this.formTerm1.value.electric_first <= 0 &&
+        this.formTerm1.value.water_first <= 0 &&
+        this.formTerm1.value.insurance <= 0
+      ) {
+        this.service.showAlert(
+          'โปรดกรอกข้อมูลให้ครบถ้วน',
+          'ภาคเรียนที่ 1',
+          'warning'
+        );
+      } else {
+        this.service
+          .showConfirm(
+            'ยืนยันการชำระเงิน (ภาคเรียนที่ 1)',
+            'ระบบจะทำการสร้างเลขที่ใบเสร็จโดยอัตโนมัติ',
+            'warning'
+          )
+          .then((val: boolean) => {
+            if (val) {
+              this.service
+                .httpPost(
+                  `/admin/setStudentCost?token=${
+                    this.service.getUserLogin()['token']
+                  }`,
+                  JSON.stringify(this.formTerm1.value)
+                )
+                .then((val: any) => {
+                  this.getStudentCost();
+                  this.service.showAlert('บันทึกสำเร็จ', '', 'success');
+                  this.formTerm1.patchValue({
+                    dorimitory: 0,
+                    electric_first: 0,
+                    water_first: 0,
+                    insurance: 0,
+                  });
+                });
+            }
+          });
+      }
+    } else {
+      this.service.showAlert(
+        'โปรดกรอกข้อมูลให้ครบถ้วน',
+        'ภาคเรียนที่ 1',
+        'warning'
+      );
+    }
+  };
+
+  public onSubmitTerm2 = () => {
+    let thisTime = new Date().getTime().toString();
+    let ramdomVal = Math.random().toString().split('.').pop();
+    this.formTerm2.patchValue({
+      receiptNumber: `${ramdomVal.substring(
+        ramdomVal.length - 4,
+        ramdomVal.length - 1
+      )}${thisTime.substring(thisTime.length - 8, thisTime.length - 1)}`,
+    });
+
+    if (this.formTerm2.valid) {
+      if (
+        this.formTerm2.value.dorimitory <= 0 &&
+        this.formTerm2.value.electric_first <= 0 &&
+        this.formTerm2.value.water_first <= 0 &&
+        this.formTerm2.value.insurance <= 0
+      ) {
+        this.service.showAlert(
+          'โปรดกรอกข้อมูลให้ครบถ้วน',
+          'ภาคเรียนที่ 2',
+          'warning'
+        );
+      } else {
+        this.service
+          .showConfirm(
+            'ยืนยันการชำระเงิน (ภาคเรียนที่ 2)',
+            'ระบบจะทำการสร้างเลขที่ใบเสร็จโดยอัตโนมัติ',
+            'warning'
+          )
+          .then((val: boolean) => {
+            if (val) {
+              this.service
+                .httpPost(
+                  `/admin/setStudentCost?token=${
+                    this.service.getUserLogin()['token']
+                  }`,
+                  JSON.stringify(this.formTerm2.value)
+                )
+                .then((val: any) => {
+                  this.getStudentCost();
+                  this.service.showAlert('บันทึกสำเร็จ', '', 'success');
+                  this.formTerm2.patchValue({
+                    dorimitory: 0,
+                    electric_first: 0,
+                    water_first: 0,
+                    insurance: 0,
+                  });
+                });
+            }
+          });
+      }
+    } else {
+      this.service.showAlert(
+        'โปรดกรอกข้อมูลให้ครบถ้วน',
+        'ภาคเรียนที่ 2',
+        'warning'
+      );
+    }
+  };
+
+  public getStudentCost = () => {
+    this.studentCost = [];
+    this.studentCostTerm1 = {
+      dorimitory: 0,
+      electric_first: 0,
+      water_first: 0,
+      insurance: 0,
+    };
+    this.studentCostTerm2 = {
+      dorimitory: 0,
+      electric_first: 0,
+      water_first: 0,
+      insurance: 0,
+    };
+    this.service
+      .httpGet(
+        `/admin/getStudentCost/${this.studentId}?token=${
+          this.service.getUserLogin()['token']
+        }`
+      )
+      .then((value: any) => {
+        if (value.success) {
+          if (value.rowCount > 0) {
+            this.studentCost = value.result;
+            let tmpVal1 = {
+              dorimitory: 0,
+              electric_first: 0,
+              water_first: 0,
+              insurance: 0,
+            };
+            let tmpVal2 = {
+              dorimitory: 0,
+              electric_first: 0,
+              water_first: 0,
+              insurance: 0,
+            };
+            this.studentCost
+              .filter((e) => {
+                return e.term == '1';
+              })
+              .forEach((el, i) => {
+                tmpVal1.dorimitory += parseInt(el['dorimitory']);
+                tmpVal1.electric_first += parseInt(el['electric_first']);
+                tmpVal1.water_first += parseInt(el['water_first']);
+                tmpVal1.insurance += parseInt(el['insurance']);
+              });
+
+            this.studentCost
+              .filter((e) => {
+                return e.term == '2';
+              })
+              .forEach((el, i) => {
+                tmpVal2.dorimitory += parseInt(el['dorimitory']);
+                tmpVal2.electric_first += parseInt(el['electric_first']);
+                tmpVal2.water_first += parseInt(el['water_first']);
+                tmpVal2.insurance += parseInt(el['insurance']);
+              });
+
+            this.studentCostTerm1 = { ...tmpVal1 };
+            this.studentCostTerm2 = { ...tmpVal2 };
+          }
+        }
+      });
+  };
 
   public searchStudent = (studentId: string) => {
+    this.studentSearchData = null;
+    this.studentId = studentId;
+    this.studentCost = [];
+
+    this.formTerm1.patchValue({
+      studentId: studentId,
+      dorimitory: 0,
+      electric_first: 0,
+      water_first: 0,
+      insurance: 0,
+    });
+    this.formTerm2.patchValue({
+      studentId: studentId,
+      dorimitory: 0,
+      electric_first: 0,
+      water_first: 0,
+      insurance: 0,
+    });
+
     this.service
       .httpGet(
         `/admin/searchStudent/${studentId}?token=${
@@ -26,14 +280,15 @@ export class DormitoryComponent implements OnInit {
       .then((value: any) => {
         if (value.success) {
           if (value.rowCount > 0) {
-            this.getCostValue();
             this.studentSearchData = value.result[0];
-            console.log(this.studentSearchData);
           } else {
+            this.service.showAlert('ไม่พบข้อมูลนักศึกษา', '', 'warning');
             this.studentSearchData = null;
           }
         }
       });
+
+    this.getStudentCost();
   };
 
   private getCostValue = () => {

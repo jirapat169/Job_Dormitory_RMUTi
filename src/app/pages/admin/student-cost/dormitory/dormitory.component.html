@@ -11,7 +11,7 @@
       <table class="table table-sm table-borderless">
         <tbody>
           <tr>
-            <td style="vertical-align: middle; align-items: center;">
+            <td style="vertical-align: middle; align-items: center">
               <mat-form-field appearance="outline">
                 <mat-label>รหัสนักศึกษา</mat-label>
                 <input
@@ -24,10 +24,8 @@
                 />
               </mat-form-field>
             </td>
-            <td style="vertical-align: middle; align-items: center;">
-              <button type="submit" class="btn btn-primary">
-                ค้นหา
-              </button>
+            <td style="vertical-align: middle; align-items: center">
+              <button type="submit" class="btn btn-primary">ค้นหา</button>
             </td>
           </tr>
         </tbody>
@@ -36,271 +34,468 @@
   </div>
 </div>
 
-<div class="card" *ngIf="studentSearchData">
-  <div class="card-body">
-    <div class="mb-3">
-      <h3>รหัสนักศึกษา&nbsp;:&nbsp;{{ studentSearchData.std_code }}</h3>
-      <h3>
-        ชื่อ&nbsp;:&nbsp;{{ studentSearchData.nameTitle
-        }}{{ studentSearchData.fname }}&nbsp;{{ studentSearchData.lname }}
-      </h3>
-      <h3>
-        ห้องพัก&nbsp;:&nbsp;{{ studentSearchData.room_number }} ({{
-          studentSearchData.room_number.charAt(1) == "8"
-            ? "ห้องแอร์"
-            : "ห้องพัดลม"
-        }})
-      </h3>
+<div *ngIf="studentSearchData">
+  <div class="card mb-3">
+    <div class="card-body" *ngIf="studentSearchData.std_code == null">
+      <h3>ไม่พบข้อมูลห้องพัก</h3>
     </div>
+    <div class="card-body" *ngIf="studentSearchData.std_code != null">
+      <div>
+        <h3>รหัสนักศึกษา&nbsp;:&nbsp;{{ studentSearchData.std_code }}</h3>
+        <h3>
+          ชื่อ&nbsp;:&nbsp;{{ studentSearchData.nameTitle
+          }}{{ studentSearchData.fname }}&nbsp;{{ studentSearchData.lname }}
+        </h3>
+        <h3>
+          ห้องพัก&nbsp;:&nbsp;{{ studentSearchData.room_number }} ({{
+            studentSearchData.room_number.charAt(1) == "8"
+              ? "ห้องแอร์"
+              : "ห้องพัดลม"
+          }})
+        </h3>
+      </div>
+    </div>
+  </div>
 
-    <div class="mb-3">
+  <div class="card mb-3" *ngIf="studentSearchData.std_code != null">
+    <div class="card-body">
       <h3 class="mb-3">ภาคเรียนที่ 1</h3>
-      <table class="table table-sm table-borderless table-hover">
-        <thead>
-          <tr>
-            <th scope="col">รายการ</th>
-            <th scope="col">จำนวนเงิน</th>
-            <th scope="col">จำนวนที่ชำระ</th>
-            <th scope="col">สถานะ</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="vertical-align: middle;">ค่าหอพัก</td>
-            <td style="vertical-align: middle;">
-              {{
-                searchCost(
-                  "1",
-                  studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                ).length > 0
-                  ? searchCost(
-                      "1",
-                      studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                    )[0]["dormitory"]
-                  : "0"
-              }}
-            </td>
-            <td style="vertical-align: middle;">
-              <input type="text" class="form-control" />
-            </td>
-            <td style="vertical-align: middle;">
-              ค้างชำระ
-            </td>
-            <td style="vertical-align: middle;">
-              <button type="button" class="btn btn-primary btn-sm">
-                บันทึก
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td style="vertical-align: middle;">ค่าประกันหอพัก</td>
-            <td style="vertical-align: middle;">
-              {{
-                searchCost(
-                  "1",
-                  studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                ).length > 0
-                  ? searchCost(
-                      "1",
-                      studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                    )[0]["insurance"]
-                  : "0"
-              }}
-            </td>
-            <td style="vertical-align: middle;">
-              <input type="text" class="form-control" />
-            </td>
-            <td style="vertical-align: middle;">
-              ค้างชำระ
-            </td>
-            <td style="vertical-align: middle;">
-              <button type="button" class="btn btn-primary btn-sm">
-                บันทึก
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td style="vertical-align: middle;">ค่าไฟฟ้าล่วงหน้า</td>
-            <td style="vertical-align: middle;">
-              {{
-                searchCost(
-                  "1",
-                  studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                ).length > 0
-                  ? searchCost(
-                      "1",
-                      studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                    )[0]["electric_first"]
-                  : "0"
-              }}
-            </td>
-            <td style="vertical-align: middle;">
-              <input type="text" class="form-control" />
-            </td>
-            <td style="vertical-align: middle;">
-              ค้างชำระ
-            </td>
-            <td style="vertical-align: middle;">
-              <button type="button" class="btn btn-primary btn-sm">
-                บันทึก
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td style="vertical-align: middle;">ค่าน้ำเหมาจ่าย</td>
-            <td style="vertical-align: middle;">
-              {{
-                searchCost(
-                  "1",
-                  studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                ).length > 0
-                  ? searchCost(
-                      "1",
-                      studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                    )[0]["water_first"]
-                  : "0"
-              }}
-            </td>
-            <td style="vertical-align: middle;">
-              <input type="text" class="form-control" />
-            </td>
-            <td style="vertical-align: middle;">
-              ค้างชำระ
-            </td>
-            <td style="vertical-align: middle;">
-              <button type="button" class="btn btn-primary btn-sm">
-                บันทึก
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <form [formGroup]="formTerm1" (ngSubmit)="onSubmitTerm1()">
+        <table class="table table-sm table-borderless table-hover">
+          <thead>
+            <tr>
+              <th scope="col">รายการ</th>
+              <th scope="col">จำนวนเงินที่ต้องชำระ (บาท)</th>
+              <th scope="col">จำนวนเงินที่ชำระแล้ว (บาท)</th>
+              <th scope="col">จำนวนเงินที่ต้องชำระเพิ่ม (บาท)</th>
+              <th scope="col">จำนวนที่ชำระ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="vertical-align: middle">ค่าหอพัก</td>
+              <td style="vertical-align: middle">
+                {{
+                  searchCost(
+                    "1",
+                    studentSearchData.room_number.charAt(1) == "8" ? "2" : "1"
+                  ).length > 0
+                    ? searchCost(
+                        "1",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      )[0]["dormitory"]
+                    : "0"
+                }}
+              </td>
+              <td style="vertical-align: middle">
+                {{ studentCostTerm1.dorimitory }}
+              </td>
+              <td style="vertical-align: middle">
+                <span *ngIf="studentCostTerm1" class="text-danger">
+                  {{
+                    service.strToInt(
+                      searchCost(
+                        "1",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      ).length > 0
+                        ? searchCost(
+                            "1",
+                            studentSearchData.room_number.charAt(1) == "8"
+                              ? "2"
+                              : "1"
+                          )[0]["dormitory"]
+                        : "0"
+                    ) - studentCostTerm1.dorimitory
+                  }}
+                </span>
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="dorimitory"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle">ค่าประกันหอพัก</td>
+              <td style="vertical-align: middle">
+                {{
+                  searchCost(
+                    "1",
+                    studentSearchData.room_number.charAt(1) == "8" ? "2" : "1"
+                  ).length > 0
+                    ? searchCost(
+                        "1",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      )[0]["insurance"]
+                    : "0"
+                }}
+              </td>
+              <td style="vertical-align: middle">
+                {{ studentCostTerm1.insurance }}
+              </td>
+              <td style="vertical-align: middle">
+                <span *ngIf="studentCostTerm1" class="text-danger">
+                  {{
+                    service.strToInt(
+                      searchCost(
+                        "1",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      ).length > 0
+                        ? searchCost(
+                            "1",
+                            studentSearchData.room_number.charAt(1) == "8"
+                              ? "2"
+                              : "1"
+                          )[0]["insurance"]
+                        : "0"
+                    ) - studentCostTerm1.insurance
+                  }}
+                </span>
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="insurance"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle">ค่าไฟฟ้าล่วงหน้า</td>
+              <td style="vertical-align: middle">
+                {{
+                  searchCost(
+                    "1",
+                    studentSearchData.room_number.charAt(1) == "8" ? "2" : "1"
+                  ).length > 0
+                    ? searchCost(
+                        "1",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      )[0]["electric_first"]
+                    : "0"
+                }}
+              </td>
+              <td style="vertical-align: middle">
+                {{ studentCostTerm1.electric_first }}
+              </td>
+              <td style="vertical-align: middle">
+                <span *ngIf="studentCostTerm1" class="text-danger">
+                  {{
+                    service.strToInt(
+                      searchCost(
+                        "1",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      ).length > 0
+                        ? searchCost(
+                            "1",
+                            studentSearchData.room_number.charAt(1) == "8"
+                              ? "2"
+                              : "1"
+                          )[0]["electric_first"]
+                        : "0"
+                    ) - studentCostTerm1.electric_first
+                  }}
+                </span>
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="electric_first"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle">ค่าน้ำเหมาจ่าย</td>
+              <td style="vertical-align: middle">
+                {{
+                  searchCost(
+                    "1",
+                    studentSearchData.room_number.charAt(1) == "8" ? "2" : "1"
+                  ).length > 0
+                    ? searchCost(
+                        "1",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      )[0]["water_first"]
+                    : "0"
+                }}
+              </td>
+              <td style="vertical-align: middle">
+                {{ studentCostTerm1.water_first }}
+              </td>
+              <td style="vertical-align: middle">
+                <span *ngIf="studentCostTerm1" class="text-danger">
+                  {{
+                    service.strToInt(
+                      searchCost(
+                        "1",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      ).length > 0
+                        ? searchCost(
+                            "1",
+                            studentSearchData.room_number.charAt(1) == "8"
+                              ? "2"
+                              : "1"
+                          )[0]["water_first"]
+                        : "0"
+                    ) - studentCostTerm1.water_first
+                  }}
+                </span>
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="water_first"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-    <div class="mb-3">
+        <div class="mt-3 text-center">
+          <button type="submit" class="btn btn-primary">ชำระเงิน</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="studentSearchData.std_code != null">
+    <div class="card-body">
       <h3 class="mb-3">ภาคเรียนที่ 2</h3>
-      <table class="table table-sm table-borderless table-hover">
-        <thead>
-          <tr>
-            <th scope="col">รายการ</th>
-            <th scope="col">จำนวนเงิน</th>
-            <th scope="col">จำนวนที่ชำระ</th>
-            <th scope="col">สถานะ</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="vertical-align: middle;">ค่าหอพัก</td>
-            <td style="vertical-align: middle;">
-              {{
-                searchCost(
-                  "2",
-                  studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                ).length > 0
-                  ? searchCost(
-                      "2",
-                      studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                    )[0]["dormitory"]
-                  : "0"
-              }}
-            </td>
-            <td style="vertical-align: middle;">
-              <input type="text" class="form-control" />
-            </td>
-            <td style="vertical-align: middle;">
-              ค้างชำระ
-            </td>
-            <td style="vertical-align: middle;">
-              <button type="button" class="btn btn-primary btn-sm">
-                บันทึก
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td style="vertical-align: middle;">ค่าประกันหอพัก</td>
-            <td style="vertical-align: middle;">
-              {{
-                searchCost(
-                  "2",
-                  studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                ).length > 0
-                  ? searchCost(
-                      "2",
-                      studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                    )[0]["insurance"]
-                  : "0"
-              }}
-            </td>
-            <td style="vertical-align: middle;">
-              <input type="text" class="form-control" />
-            </td>
-            <td style="vertical-align: middle;">
-              ค้างชำระ
-            </td>
-            <td style="vertical-align: middle;">
-              <button type="button" class="btn btn-primary btn-sm">
-                บันทึก
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td style="vertical-align: middle;">ค่าไฟฟ้าล่วงหน้า</td>
-            <td style="vertical-align: middle;">
-              {{
-                searchCost(
-                  "2",
-                  studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                ).length > 0
-                  ? searchCost(
-                      "2",
-                      studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                    )[0]["electric_first"]
-                  : "0"
-              }}
-            </td>
-            <td style="vertical-align: middle;">
-              <input type="text" class="form-control" />
-            </td>
-            <td style="vertical-align: middle;">
-              ค้างชำระ
-            </td>
-            <td style="vertical-align: middle;">
-              <button type="button" class="btn btn-primary btn-sm">
-                บันทึก
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td style="vertical-align: middle;">ค่าน้ำเหมาจ่าย</td>
-            <td style="vertical-align: middle;">
-              {{
-                searchCost(
-                  "2",
-                  studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                ).length > 0
-                  ? searchCost(
-                      "2",
-                      studentSearchData.room_number.charAt(1) == "8" ? "2" : '1'
-                    )[0]["water_first"]
-                  : "0"
-              }}
-            </td>
-            <td style="vertical-align: middle;">
-              <input type="text" class="form-control" />
-            </td>
-            <td style="vertical-align: middle;">
-              ค้างชำระ
-            </td>
-            <td style="vertical-align: middle;">
-              <button type="button" class="btn btn-primary btn-sm">
-                บันทึก
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <form [formGroup]="formTerm2" (ngSubmit)="onSubmitTerm2()">
+        <table class="table table-sm table-borderless table-hover">
+          <thead>
+            <tr>
+              <th scope="col">รายการ</th>
+              <th scope="col">จำนวนเงินที่ต้องชำระ (บาท)</th>
+              <th scope="col">จำนวนเงินที่ชำระแล้ว (บาท)</th>
+              <th scope="col">จำนวนเงินที่ต้องชำระเพิ่ม (บาท)</th>
+              <th scope="col">จำนวนที่ชำระ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="vertical-align: middle">ค่าหอพัก</td>
+              <td style="vertical-align: middle">
+                {{
+                  searchCost(
+                    "2",
+                    studentSearchData.room_number.charAt(1) == "8" ? "2" : "1"
+                  ).length > 0
+                    ? searchCost(
+                        "2",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      )[0]["dormitory"]
+                    : "0"
+                }}
+              </td>
+              <td style="vertical-align: middle">
+                {{ studentCostTerm2.dorimitory }}
+              </td>
+              <td style="vertical-align: middle">
+                <span *ngIf="studentCostTerm1" class="text-danger">
+                  {{
+                    service.strToInt(
+                      searchCost(
+                        "2",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      ).length > 0
+                        ? searchCost(
+                            "2",
+                            studentSearchData.room_number.charAt(1) == "8"
+                              ? "2"
+                              : "1"
+                          )[0]["dormitory"]
+                        : "0"
+                    ) - studentCostTerm2.dorimitory
+                  }}
+                </span>
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="dorimitory"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle">ค่าประกันหอพัก</td>
+              <td style="vertical-align: middle">
+                {{
+                  searchCost(
+                    "2",
+                    studentSearchData.room_number.charAt(1) == "8" ? "2" : "1"
+                  ).length > 0
+                    ? searchCost(
+                        "2",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      )[0]["insurance"]
+                    : "0"
+                }}
+              </td>
+              <td style="vertical-align: middle">
+                {{ studentCostTerm2.insurance }}
+              </td>
+              <td style="vertical-align: middle">
+                <span *ngIf="studentCostTerm1" class="text-danger">
+                  {{
+                    service.strToInt(
+                      searchCost(
+                        "2",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      ).length > 0
+                        ? searchCost(
+                            "2",
+                            studentSearchData.room_number.charAt(1) == "8"
+                              ? "2"
+                              : "1"
+                          )[0]["insurance"]
+                        : "0"
+                    ) - studentCostTerm2.insurance
+                  }}
+                </span>
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="insurance"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle">ค่าไฟฟ้าล่วงหน้า</td>
+              <td style="vertical-align: middle">
+                {{
+                  searchCost(
+                    "2",
+                    studentSearchData.room_number.charAt(1) == "8" ? "2" : "1"
+                  ).length > 0
+                    ? searchCost(
+                        "2",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      )[0]["electric_first"]
+                    : "0"
+                }}
+              </td>
+              <td style="vertical-align: middle">
+                {{ studentCostTerm2.electric_first }}
+              </td>
+              <td style="vertical-align: middle">
+                <span *ngIf="studentCostTerm1" class="text-danger">
+                  {{
+                    service.strToInt(
+                      searchCost(
+                        "2",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      ).length > 0
+                        ? searchCost(
+                            "2",
+                            studentSearchData.room_number.charAt(1) == "8"
+                              ? "2"
+                              : "1"
+                          )[0]["electric_first"]
+                        : "0"
+                    ) - studentCostTerm2.electric_first
+                  }}
+                </span>
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="electric_first"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle">ค่าน้ำเหมาจ่าย</td>
+              <td style="vertical-align: middle">
+                {{
+                  searchCost(
+                    "2",
+                    studentSearchData.room_number.charAt(1) == "8" ? "2" : "1"
+                  ).length > 0
+                    ? searchCost(
+                        "2",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      )[0]["water_first"]
+                    : "0"
+                }}
+              </td>
+              <td style="vertical-align: middle">
+                {{ studentCostTerm2.water_first }}
+              </td>
+              <td style="vertical-align: middle">
+                <span *ngIf="studentCostTerm1" class="text-danger">
+                  {{
+                    service.strToInt(
+                      searchCost(
+                        "2",
+                        studentSearchData.room_number.charAt(1) == "8"
+                          ? "2"
+                          : "1"
+                      ).length > 0
+                        ? searchCost(
+                            "2",
+                            studentSearchData.room_number.charAt(1) == "8"
+                              ? "2"
+                              : "1"
+                          )[0]["water_first"]
+                        : "0"
+                    ) - studentCostTerm2.water_first
+                  }}
+                </span>
+              </td>
+              <td style="vertical-align: middle">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="water_first"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="mt-3 text-center">
+          <button type="submit" class="btn btn-primary">ชำระเงิน</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
