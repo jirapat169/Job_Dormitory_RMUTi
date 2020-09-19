@@ -8,6 +8,7 @@ import { AppService } from 'src/app/services/app.service';
 })
 export class ElectricComponent implements OnInit {
   public roomSearchData: Array<any> = [];
+  public roomText: string = '';
 
   constructor(public service: AppService) {
     this.service.setHeaderPage('student-cost/electric', 'ค่าไฟประจำเดือน');
@@ -17,6 +18,7 @@ export class ElectricComponent implements OnInit {
 
   public searchRoom = (roomNumber: string) => {
     this.roomSearchData = [];
+    this.roomText = roomNumber;
     this.service
       .httpGet(
         `/admin/searchRoom/${roomNumber}?token=${
@@ -44,5 +46,43 @@ export class ElectricComponent implements OnInit {
           return el.month_read < month;
         })[0]
       : null;
+  };
+
+  public payElectric = (data) => {
+    console.log(data);
+    this.service
+      .showConfirm(
+        `ยืนยันการชำระเงิน ห้อง${data.room_number}`,
+        `จำนวนเงิน ${data.electric_cost_add} บาท`,
+        'warning'
+      )
+      .then((val: boolean) => {
+        if (val) {
+          let thisTime = new Date().getTime().toString();
+          let ramdomVal = Math.random().toString().split('.').pop();
+          let form = {
+            receiptNumber: `${ramdomVal.substring(
+              ramdomVal.length - 4,
+              ramdomVal.length - 1
+            )}${thisTime.substring(thisTime.length - 8, thisTime.length - 1)}`,
+            room_number: data.room_number,
+            month_read: data.month_read,
+          };
+
+          this.service
+            .httpPost(
+              `/admin/setElectricBill?token=${
+                this.service.getUserLogin()['token']
+              }`,
+              JSON.stringify(form)
+            )
+            .then((value: any) => {
+              if (value.result) {
+                this.searchRoom(this.roomText);
+                this.service.showAlert('บันทึกสำเร็จ', ``, 'success');
+              }
+            });
+        }
+      });
   };
 }

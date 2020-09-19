@@ -111,3 +111,11 @@ mat-hint {
 .fc-left {
   font-size: 10px !important;
 }
+
+.modal-backdrop {
+  display: none !important;
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.3);
+}

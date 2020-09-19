@@ -11,7 +11,7 @@
       <table class="table table-sm table-borderless">
         <tbody>
           <tr>
-            <td style="vertical-align: middle; align-items: center;">
+            <td style="vertical-align: middle; align-items: center">
               <mat-form-field appearance="outline">
                 <mat-label>เลขห้อง</mat-label>
                 <input
@@ -24,10 +24,8 @@
                 />
               </mat-form-field>
             </td>
-            <td style="vertical-align: middle; align-items: center;">
-              <button type="submit" class="btn btn-primary">
-                ค้นหา
-              </button>
+            <td style="vertical-align: middle; align-items: center">
+              <button type="submit" class="btn btn-primary">ค้นหา</button>
             </td>
           </tr>
         </tbody>
@@ -88,8 +86,15 @@
               {{ x.admin_lname }}
             </h3>
 
-            <div *ngIf="x.isPay == '0'">
-              <div class="mt-3" *ngIf="x.std_name">
+            <div *ngIf="x.isPay == '0'" class="mt-3">
+              <button
+                type="submit"
+                class="btn btn-primary btn-sm"
+                (click)="payElectric(x)"
+              >
+                ชำระเงิน
+              </button>
+              <!-- <div class="mt-3" *ngIf="x.std_name">
                 <h3>เลือกผู้ที่ต้องการชำระเงิน</h3>
               </div>
 
@@ -121,7 +126,7 @@
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> -->
             </div>
           </div>
         </div>
@@ -132,8 +137,6 @@
 
 <div *ngIf="roomSearchData == null">
   <div class="card">
-    <div class="card-body">
-      ไม่พบข้อมูล
-    </div>
+    <div class="card-body">ไม่พบข้อมูล</div>
   </div>
 </div>

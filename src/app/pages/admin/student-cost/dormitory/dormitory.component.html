@@ -59,8 +59,73 @@
 
   <div class="card mb-3" *ngIf="studentSearchData.std_code != null">
     <div class="card-body">
-      <h3 class="mb-3">ภาคเรียนที่ 1</h3>
-      <form [formGroup]="formTerm1" (ngSubmit)="onSubmitTerm1()">
+      <div class="row">
+        <div class="col-md mb-3">
+          <h3>ภาคเรียนที่ 1</h3>
+        </div>
+        <div class="col-md mb-3 text-right">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            data-toggle="modal"
+            data-target="#exampleModalTerm1"
+          >
+            ประวัติการชำระเงิน
+          </button>
+        </div>
+      </div>
+
+      <form
+        [formGroup]="formTerm1"
+        (ngSubmit)="
+          onSubmitTerm1(
+            service.strToInt(
+              searchCost(
+                '1',
+                studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+              ).length > 0
+                ? searchCost(
+                    '1',
+                    studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+                  )[0]['dormitory']
+                : '0'
+            ) - studentCostTerm1.dorimitory,
+            service.strToInt(
+              searchCost(
+                '1',
+                studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+              ).length > 0
+                ? searchCost(
+                    '1',
+                    studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+                  )[0]['electric_first']
+                : '0'
+            ) - studentCostTerm1.electric_first,
+            service.strToInt(
+              searchCost(
+                '1',
+                studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+              ).length > 0
+                ? searchCost(
+                    '1',
+                    studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+                  )[0]['water_first']
+                : '0'
+            ) - studentCostTerm1.water_first,
+            service.strToInt(
+              searchCost(
+                '1',
+                studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+              ).length > 0
+                ? searchCost(
+                    '1',
+                    studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+                  )[0]['insurance']
+                : '0'
+            ) - studentCostTerm1.insurance
+          )
+        "
+      >
         <table class="table table-sm table-borderless table-hover">
           <thead>
             <tr>
@@ -118,6 +183,24 @@
                   type="number"
                   class="form-control"
                   formControlName="dorimitory"
+                  [min]="'0'"
+                  [max]="
+                    service.strToInt(
+                      searchCost(
+                        '1',
+                        studentSearchData.room_number.charAt(1) == '8'
+                          ? '2'
+                          : '1'
+                      ).length > 0
+                        ? searchCost(
+                            '1',
+                            studentSearchData.room_number.charAt(1) == '8'
+                              ? '2'
+                              : '1'
+                          )[0]['dormitory']
+                        : '0'
+                    ) - studentCostTerm1.dorimitory
+                  "
                 />
               </td>
             </tr>
@@ -280,8 +363,72 @@
 
   <div class="card" *ngIf="studentSearchData.std_code != null">
     <div class="card-body">
-      <h3 class="mb-3">ภาคเรียนที่ 2</h3>
-      <form [formGroup]="formTerm2" (ngSubmit)="onSubmitTerm2()">
+      <div class="row">
+        <div class="col-md mb-3">
+          <h3>ภาคเรียนที่ 2</h3>
+        </div>
+        <div class="col-md mb-3 text-right">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            data-toggle="modal"
+            data-target="#exampleModalTerm2"
+          >
+            ประวัติการชำระเงิน
+          </button>
+        </div>
+      </div>
+      <form
+        [formGroup]="formTerm2"
+        (ngSubmit)="
+          onSubmitTerm2(
+            service.strToInt(
+              searchCost(
+                '2',
+                studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+              ).length > 0
+                ? searchCost(
+                    '2',
+                    studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+                  )[0]['dormitory']
+                : '0'
+            ) - studentCostTerm2.dorimitory,
+            service.strToInt(
+              searchCost(
+                '2',
+                studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+              ).length > 0
+                ? searchCost(
+                    '2',
+                    studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+                  )[0]['electric_first']
+                : '0'
+            ) - studentCostTerm2.electric_first,
+            service.strToInt(
+              searchCost(
+                '2',
+                studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+              ).length > 0
+                ? searchCost(
+                    '2',
+                    studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+                  )[0]['water_first']
+                : '0'
+            ) - studentCostTerm2.water_first,
+            service.strToInt(
+              searchCost(
+                '2',
+                studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+              ).length > 0
+                ? searchCost(
+                    '2',
+                    studentSearchData.room_number.charAt(1) == '8' ? '2' : '1'
+                  )[0]['insurance']
+                : '0'
+            ) - studentCostTerm2.insurance
+          )
+        "
+      >
         <table class="table table-sm table-borderless table-hover">
           <thead>
             <tr>
@@ -496,6 +643,138 @@
           <button type="submit" class="btn btn-primary">ชำระเงิน</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModalTerm1"
+  tabindex="-1"
+  aria-labelledby="exampleModalTerm1Label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalTerm1Label">
+          ประวัติการชำระเงิน (ภาคเรียนที่ 1)
+        </h2>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table
+          class="table table-bordered table-sm table-hover"
+          *ngIf="studentCostTerm('1').length > 0"
+        >
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">เลขที่ใบเสร็จ</th>
+              <th scope="col">ค่าหอพัก</th>
+              <th scope="col">ค่าประกันหอพัก</th>
+              <th scope="col">ค่าไฟฟ้าล่วงหน้า</th>
+              <th scope="col">ค่าน้ำเหมาจ่าย</th>
+              <th scope="col">วันที่ชำระ</th>
+              <!-- <th scope="col">วันที่บันทึก</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let x of studentCostTerm('1'); let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ x.receiptNumber }}</td>
+              <td>{{ x.dorimitory }}</td>
+              <td>{{ x.insurance }}</td>
+              <td>{{ x.electric_first }}</td>
+              <td>{{ x.water_first }}</td>
+              <td>{{ x.update_time }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm"
+          data-dismiss="modal"
+        >
+          ปิด
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModalTerm2"
+  tabindex="-1"
+  aria-labelledby="exampleModalTerm2Label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalTerm2Label">
+          ประวัติการชำระเงิน (ภาคเรียนที่ 2)
+        </h2>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table
+          class="table table-bordered table-sm table-hover"
+          *ngIf="studentCostTerm('2').length > 0"
+        >
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">เลขที่ใบเสร็จ</th>
+              <th scope="col">ค่าหอพัก</th>
+              <th scope="col">ค่าประกันหอพัก</th>
+              <th scope="col">ค่าไฟฟ้าล่วงหน้า</th>
+              <th scope="col">ค่าน้ำเหมาจ่าย</th>
+              <th scope="col">วันที่ชำระ</th>
+              <!-- <th scope="col">วันที่บันทึก</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let x of studentCostTerm('2'); let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ x.receiptNumber }}</td>
+              <td>{{ x.dorimitory }}</td>
+              <td>{{ x.insurance }}</td>
+              <td>{{ x.electric_first }}</td>
+              <td>{{ x.water_first }}</td>
+              <td>{{ x.update_time }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm"
+          data-dismiss="modal"
+        >
+          ปิด
+        </button>
+      </div>
     </div>
   </div>
 </div>

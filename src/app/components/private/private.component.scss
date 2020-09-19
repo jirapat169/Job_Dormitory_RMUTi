@@ -24,3 +24,7 @@
   background-color: #eaeaea;
   border-right: 3px solid #007bff;
 }
+
+.mat-drawer.mat-drawer-side {
+  z-index: 1 !important;
+}

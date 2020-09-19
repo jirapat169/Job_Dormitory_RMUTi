@@ -66,7 +66,7 @@ export class DormitoryComponent implements OnInit {
     });
   }
 
-  public onSubmitTerm1 = () => {
+  public onSubmitTerm1 = (dorLim, elecLim, waLim, insuLim) => {
     let thisTime = new Date().getTime().toString();
     let ramdomVal = Math.random().toString().split('.').pop();
     this.formTerm1.patchValue({
@@ -89,33 +89,46 @@ export class DormitoryComponent implements OnInit {
           'warning'
         );
       } else {
-        this.service
-          .showConfirm(
-            'ยืนยันการชำระเงิน (ภาคเรียนที่ 1)',
-            'ระบบจะทำการสร้างเลขที่ใบเสร็จโดยอัตโนมัติ',
-            'warning'
-          )
-          .then((val: boolean) => {
-            if (val) {
-              this.service
-                .httpPost(
-                  `/admin/setStudentCost?token=${
-                    this.service.getUserLogin()['token']
-                  }`,
-                  JSON.stringify(this.formTerm1.value)
-                )
-                .then((val: any) => {
-                  this.getStudentCost();
-                  this.service.showAlert('บันทึกสำเร็จ', '', 'success');
-                  this.formTerm1.patchValue({
-                    dorimitory: 0,
-                    electric_first: 0,
-                    water_first: 0,
-                    insurance: 0,
+        if (
+          this.formTerm1.value.dorimitory <= parseInt(dorLim) &&
+          this.formTerm1.value.electric_first <= parseInt(elecLim) &&
+          this.formTerm1.value.water_first <= parseInt(waLim) &&
+          this.formTerm1.value.insurance <= parseInt(insuLim)
+        ) {
+          this.service
+            .showConfirm(
+              'ยืนยันการชำระเงิน (ภาคเรียนที่ 1)',
+              'ระบบจะทำการสร้างเลขที่ใบเสร็จโดยอัตโนมัติ',
+              'warning'
+            )
+            .then((val: boolean) => {
+              if (val) {
+                this.service
+                  .httpPost(
+                    `/admin/setStudentCost?token=${
+                      this.service.getUserLogin()['token']
+                    }`,
+                    JSON.stringify(this.formTerm1.value)
+                  )
+                  .then((val: any) => {
+                    this.getStudentCost();
+                    this.service.showAlert('บันทึกสำเร็จ', '', 'success');
+                    this.formTerm1.patchValue({
+                      dorimitory: 0,
+                      electric_first: 0,
+                      water_first: 0,
+                      insurance: 0,
+                    });
                   });
-                });
-            }
-          });
+              }
+            });
+        } else {
+          this.service.showAlert(
+            'โปรดระบบุจำนวนเงินให้ถูกต้อง',
+            'ภาคเรียนที่ 1',
+            'warning'
+          );
+        }
       }
     } else {
       this.service.showAlert(
@@ -126,7 +139,7 @@ export class DormitoryComponent implements OnInit {
     }
   };
 
-  public onSubmitTerm2 = () => {
+  public onSubmitTerm2 = (dorLim, elecLim, waLim, insuLim) => {
     let thisTime = new Date().getTime().toString();
     let ramdomVal = Math.random().toString().split('.').pop();
     this.formTerm2.patchValue({
@@ -149,33 +162,46 @@ export class DormitoryComponent implements OnInit {
           'warning'
         );
       } else {
-        this.service
-          .showConfirm(
-            'ยืนยันการชำระเงิน (ภาคเรียนที่ 2)',
-            'ระบบจะทำการสร้างเลขที่ใบเสร็จโดยอัตโนมัติ',
-            'warning'
-          )
-          .then((val: boolean) => {
-            if (val) {
-              this.service
-                .httpPost(
-                  `/admin/setStudentCost?token=${
-                    this.service.getUserLogin()['token']
-                  }`,
-                  JSON.stringify(this.formTerm2.value)
-                )
-                .then((val: any) => {
-                  this.getStudentCost();
-                  this.service.showAlert('บันทึกสำเร็จ', '', 'success');
-                  this.formTerm2.patchValue({
-                    dorimitory: 0,
-                    electric_first: 0,
-                    water_first: 0,
-                    insurance: 0,
+        if (
+          this.formTerm2.value.dorimitory <= parseInt(dorLim) &&
+          this.formTerm2.value.electric_first <= parseInt(elecLim) &&
+          this.formTerm2.value.water_first <= parseInt(waLim) &&
+          this.formTerm2.value.insurance <= parseInt(insuLim)
+        ) {
+          this.service
+            .showConfirm(
+              'ยืนยันการชำระเงิน (ภาคเรียนที่ 2)',
+              'ระบบจะทำการสร้างเลขที่ใบเสร็จโดยอัตโนมัติ',
+              'warning'
+            )
+            .then((val: boolean) => {
+              if (val) {
+                this.service
+                  .httpPost(
+                    `/admin/setStudentCost?token=${
+                      this.service.getUserLogin()['token']
+                    }`,
+                    JSON.stringify(this.formTerm2.value)
+                  )
+                  .then((val: any) => {
+                    this.getStudentCost();
+                    this.service.showAlert('บันทึกสำเร็จ', '', 'success');
+                    this.formTerm2.patchValue({
+                      dorimitory: 0,
+                      electric_first: 0,
+                      water_first: 0,
+                      insurance: 0,
+                    });
                   });
-                });
-            }
-          });
+              }
+            });
+        } else {
+          this.service.showAlert(
+            'โปรดระบบุจำนวนเงินให้ถูกต้อง',
+            'ภาคเรียนที่ 1',
+            'warning'
+          );
+        }
       }
     } else {
       this.service.showAlert(
@@ -207,6 +233,7 @@ export class DormitoryComponent implements OnInit {
         }`
       )
       .then((value: any) => {
+        console.log(value);
         if (value.success) {
           if (value.rowCount > 0) {
             this.studentCost = value.result;
@@ -310,6 +337,12 @@ export class DormitoryComponent implements OnInit {
   public searchCost = (term: string, room_type: string) => {
     return this.costValue.filter((el) => {
       return el.term == term && el.room_type == room_type;
+    });
+  };
+
+  public studentCostTerm = (term: string) => {
+    return this.studentCost.filter((e) => {
+      return e.term == term;
     });
   };
 }
