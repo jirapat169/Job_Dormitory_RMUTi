@@ -69,6 +69,11 @@ export class PrivateComponent implements OnInit {
             path: '/history-electric-bill',
           },
           {
+            icon: 'fas fa-edit',
+            name: 'สรุปค่าใช้จ่ายประจำวัน',
+            path: '/cost-summary',
+          },
+          {
             icon: 'fas fa-users-cog',
             name: 'จัดการบัญชีผู้ใช้',
             path: '/usermanager',
@@ -85,6 +90,11 @@ export class PrivateComponent implements OnInit {
             icon: 'fas fa-dollar-sign',
             name: 'จัดการรายการค่าใช้จ่าย',
             path: '/cost-manage',
+          },
+          {
+            icon: 'fas fa-edit',
+            name: 'สรุปค่าใช้จ่ายประจำวัน',
+            path: '/cost-summary',
           },
         ];
       } else if (this.service.getUserLogin()['type_id'] == '3') {

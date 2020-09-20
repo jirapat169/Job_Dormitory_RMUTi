@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { CheckLoginGuard } from './guards/check-login.guard';
 import { AdminViewGuard } from './guards/admin-view.guard';
 import { StudentViewGuard } from './guards/student-view.guard';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 export function getBaseUrl() {
   return document.getElementsByTagName('base')[0].href;
@@ -46,6 +47,7 @@ export function getBaseUrl() {
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },
+    { provide: MAT_DATE_LOCALE, useValue: 'th-TH' },
     AppService,
     CheckLoginGuard,
     AdminViewGuard,
