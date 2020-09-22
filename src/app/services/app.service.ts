@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import { Title, Meta } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 
+const _window: any = window;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -286,5 +288,9 @@ export class AppService {
       property: 'twitter:description',
       content: `เว็บแอปพลิเคชันจัดการในการเก็บข้อมูลหอพัก ค่าไฟหอพัก โดยการตรวจสอบสถานะของนักศึกษาที่ค้างชำระค่าหอพักนักศึกษา ค่าประกันหอพัก คำนวณการใช้หน่วยไฟฟ้าของแต่ละห้องคำนวณออกมา และสมารถสรุปผลเป็นรายเดือนรายปีได้ จึงได้ทำการเก็บข้อมูลจากหอพักนักศึกษาเก็บกับค่าใช้จ่ายและรายละเอียดต่าง ๆ จากสำนักงานหอพักนักศึกษามหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน นครราชสีมา`,
     });
+  };
+
+  ArabicNumberToText = (data) => {
+    return _window.ArabicNumberToText(data);
   };
 }

@@ -16,6 +16,7 @@ export class DormitoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllStudentCost();
+    console.log(this.service.ArabicNumberToText('12345'));
   }
 
   public getAllStudentCost = () => {
