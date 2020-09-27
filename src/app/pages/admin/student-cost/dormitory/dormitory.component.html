@@ -126,6 +126,21 @@
           )
         "
       >
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>เลขที่ใบเสร็จ</mat-label>
+              <input
+                matInput
+                placeholder=""
+                type="text"
+                formControlName="receiptNumber"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-8 mb-3 text-right"></div>
+        </div>
         <table class="table table-sm table-borderless table-hover">
           <thead>
             <tr>
@@ -378,6 +393,7 @@
           </button>
         </div>
       </div>
+
       <form
         [formGroup]="formTerm2"
         (ngSubmit)="
@@ -429,6 +445,22 @@
           )
         "
       >
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>เลขที่ใบเสร็จ</mat-label>
+              <input
+                matInput
+                placeholder=""
+                type="text"
+                formControlName="receiptNumber"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-8 mb-3 text-right"></div>
+        </div>
+
         <table class="table table-sm table-borderless table-hover">
           <thead>
             <tr>

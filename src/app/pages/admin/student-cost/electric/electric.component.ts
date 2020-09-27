@@ -9,6 +9,7 @@ import { AppService } from 'src/app/services/app.service';
 export class ElectricComponent implements OnInit {
   public roomSearchData: Array<any> = [];
   public roomText: string = '';
+  public receiptNumber: string = '';
 
   constructor(public service: AppService) {
     this.service.setHeaderPage('student-cost/electric', 'ค่าไฟประจำเดือน');
@@ -61,10 +62,11 @@ export class ElectricComponent implements OnInit {
           let thisTime = new Date().getTime().toString();
           let ramdomVal = Math.random().toString().split('.').pop();
           let form = {
-            receiptNumber: `${ramdomVal.substring(
-              ramdomVal.length - 4,
-              ramdomVal.length - 1
-            )}${thisTime.substring(thisTime.length - 8, thisTime.length - 1)}`,
+            // receiptNumber: `${ramdomVal.substring(
+            //   ramdomVal.length - 4,
+            //   ramdomVal.length - 1
+            // )}${thisTime.substring(thisTime.length - 8, thisTime.length - 1)}`,
+            receiptNumber: this.receiptNumber,
             room_number: data.room_number,
             month_read: data.month_read,
           };

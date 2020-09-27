@@ -44,7 +44,7 @@ export class DormitoryComponent implements OnInit {
   ngOnInit() {
     this.getCostValue();
     this.formTerm1 = this.formBuilder.group({
-      receiptNumber: [''],
+      receiptNumber: ['', Validators.required],
       term: ['1'],
       studentId: ['', Validators.required],
       dorimitory: [0, Validators.required],
@@ -55,7 +55,7 @@ export class DormitoryComponent implements OnInit {
     });
 
     this.formTerm2 = this.formBuilder.group({
-      receiptNumber: [''],
+      receiptNumber: ['', Validators.required],
       term: ['2'],
       studentId: ['', Validators.required],
       dorimitory: [0, Validators.required],
@@ -67,14 +67,14 @@ export class DormitoryComponent implements OnInit {
   }
 
   public onSubmitTerm1 = (dorLim, elecLim, waLim, insuLim) => {
-    let thisTime = new Date().getTime().toString();
-    let ramdomVal = Math.random().toString().split('.').pop();
-    this.formTerm1.patchValue({
-      receiptNumber: `${ramdomVal.substring(
-        ramdomVal.length - 4,
-        ramdomVal.length - 1
-      )}${thisTime.substring(thisTime.length - 8, thisTime.length - 1)}`,
-    });
+    // let thisTime = new Date().getTime().toString();
+    // let ramdomVal = Math.random().toString().split('.').pop();
+    // this.formTerm1.patchValue({
+    //   receiptNumber: `${ramdomVal.substring(
+    //     ramdomVal.length - 4,
+    //     ramdomVal.length - 1
+    //   )}${thisTime.substring(thisTime.length - 8, thisTime.length - 1)}`,
+    // });
 
     if (this.formTerm1.valid) {
       if (
@@ -114,6 +114,7 @@ export class DormitoryComponent implements OnInit {
                     this.getStudentCost();
                     this.service.showAlert('บันทึกสำเร็จ', '', 'success');
                     this.formTerm1.patchValue({
+                      receiptNumber: '',
                       dorimitory: 0,
                       electric_first: 0,
                       water_first: 0,
@@ -140,14 +141,14 @@ export class DormitoryComponent implements OnInit {
   };
 
   public onSubmitTerm2 = (dorLim, elecLim, waLim, insuLim) => {
-    let thisTime = new Date().getTime().toString();
-    let ramdomVal = Math.random().toString().split('.').pop();
-    this.formTerm2.patchValue({
-      receiptNumber: `${ramdomVal.substring(
-        ramdomVal.length - 4,
-        ramdomVal.length - 1
-      )}${thisTime.substring(thisTime.length - 8, thisTime.length - 1)}`,
-    });
+    // let thisTime = new Date().getTime().toString();
+    // let ramdomVal = Math.random().toString().split('.').pop();
+    // this.formTerm2.patchValue({
+    //   receiptNumber: `${ramdomVal.substring(
+    //     ramdomVal.length - 4,
+    //     ramdomVal.length - 1
+    //   )}${thisTime.substring(thisTime.length - 8, thisTime.length - 1)}`,
+    // });
 
     if (this.formTerm2.valid) {
       if (
@@ -187,6 +188,7 @@ export class DormitoryComponent implements OnInit {
                     this.getStudentCost();
                     this.service.showAlert('บันทึกสำเร็จ', '', 'success');
                     this.formTerm2.patchValue({
+                      receiptNumber: '',
                       dorimitory: 0,
                       electric_first: 0,
                       water_first: 0,
@@ -198,7 +200,7 @@ export class DormitoryComponent implements OnInit {
         } else {
           this.service.showAlert(
             'โปรดระบบุจำนวนเงินให้ถูกต้อง',
-            'ภาคเรียนที่ 1',
+            'ภาคเรียนที่ 2',
             'warning'
           );
         }
