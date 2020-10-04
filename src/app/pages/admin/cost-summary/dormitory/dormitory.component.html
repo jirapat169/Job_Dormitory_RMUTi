@@ -67,6 +67,31 @@
             <td>{{ x.insurance }}</td>
             <td>{{ sumCost(x) }}</td>
           </tr>
+          <tr>
+            <td colspan="6" style="text-align: center">
+              {{
+                service.ArabicNumberToText(
+                  sumCol(listStudentCostOnDate, "dorimitory") +
+                    sumCol(listStudentCostOnDate, "electric_first") +
+                    sumCol(listStudentCostOnDate, "water_first") +
+                    sumCol(listStudentCostOnDate, "insurance")
+                )
+              }}
+            </td>
+            <td></td>
+            <td>{{ sumCol(listStudentCostOnDate, "dorimitory") }}</td>
+            <td>{{ sumCol(listStudentCostOnDate, "electric_first") }}</td>
+            <td>{{ sumCol(listStudentCostOnDate, "water_first") }}</td>
+            <td>{{ sumCol(listStudentCostOnDate, "insurance") }}</td>
+            <td>
+              {{
+                sumCol(listStudentCostOnDate, "dorimitory") +
+                  sumCol(listStudentCostOnDate, "electric_first") +
+                  sumCol(listStudentCostOnDate, "water_first") +
+                  sumCol(listStudentCostOnDate, "insurance")
+              }}
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

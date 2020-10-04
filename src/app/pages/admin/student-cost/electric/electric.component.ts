@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
 
+const _window: any = window;
+
 @Component({
   selector: 'app-electric',
   templateUrl: './electric.component.html',
@@ -10,6 +12,7 @@ export class ElectricComponent implements OnInit {
   public roomSearchData: Array<any> = [];
   public roomText: string = '';
   public receiptNumber: string = '';
+  public listSelected: any = null;
 
   constructor(public service: AppService) {
     this.service.setHeaderPage('student-cost/electric', 'ค่าไฟประจำเดือน');
@@ -82,6 +85,9 @@ export class ElectricComponent implements OnInit {
               if (value.result) {
                 this.searchRoom(this.roomText);
                 this.service.showAlert('บันทึกสำเร็จ', ``, 'success');
+                this.receiptNumber = '';
+                this.listSelected = null;
+                _window.$('#exampleModalReceiptNumber').modal('hide');
               }
             });
         }

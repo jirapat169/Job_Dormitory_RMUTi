@@ -35,10 +35,18 @@ export class DormitoryComponent implements OnInit {
       });
   };
 
+  public sumCol = (data, key) => {
+    let sum = 0;
+    data.forEach((e, i) => {
+      sum += parseInt(e[key]);
+    });
+    return sum;
+  };
+
   public dateChange = (data) => {
-    let timeSelect = new Date(data).toISOString().split('T')[0];
+    let timeSelect = new Date(data).toLocaleDateString();
     let result = this.listStudentCost.filter((e) => {
-      return new Date(e.update_time).toISOString().split('T')[0] == timeSelect;
+      return new Date(e.update_time).toLocaleDateString() == timeSelect;
     });
     this.listStudentCostOnDate = result;
   };
