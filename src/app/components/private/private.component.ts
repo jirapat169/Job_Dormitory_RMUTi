@@ -73,11 +73,11 @@ export class PrivateComponent implements OnInit {
             name: 'สรุปค่าใช้จ่ายประจำวัน',
             path: '/cost-summary',
           },
-          {
-            icon: 'fas fa-users-cog',
-            name: 'จัดการบัญชีผู้ใช้',
-            path: '/usermanager',
-          },
+          // {
+          //   icon: 'fas fa-users-cog',
+          //   name: 'จัดการบัญชีผู้ใช้',
+          //   path: '/usermanager',
+          // },
         ];
       } else if (this.service.getUserLogin()['type_id'] == '2') {
         this.menuList = [

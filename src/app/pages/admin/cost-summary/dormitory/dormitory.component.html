@@ -22,6 +22,60 @@
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
       </div>
+
+      <div class="col-md-6 mb-3">
+        <div class="dropdown">
+          <button
+            class="btn btn-warning btn-sm dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            [disabled]="listStudentCostOnDate.length <= 0"
+          >
+            Export
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a
+              class="dropdown-item"
+              href="javascript:void(0)"
+              (click)="
+                exportFile(
+                  listStudentCostOnDate,
+                  'ค่าหอพักนักศึกษาประจำวัน',
+                  'pdf'
+                )
+              "
+              >PDF</a
+            >
+            <a
+              class="dropdown-item"
+              href="javascript:void(0)"
+              (click)="
+                exportFile(
+                  listStudentCostOnDate,
+                  'ค่าหอพักนักศึกษาประจำวัน',
+                  'xls'
+                )
+              "
+              >Excel (XLS)</a
+            >
+            <a
+              class="dropdown-item"
+              href="javascript:void(0)"
+              (click)="
+                exportFile(
+                  listStudentCostOnDate,
+                  'ค่าหอพักนักศึกษาประจำวัน',
+                  'xlsx'
+                )
+              "
+              >Excel (XLSX)</a
+            >
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

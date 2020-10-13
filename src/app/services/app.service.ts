@@ -5,7 +5,29 @@ import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { Title, Meta } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+import pdfMake from './pdfmake/pdfmake';
+import pdfFonts from './pdfmake/vfs_fonts';
 
+pdfMake.fonts = {
+  THSarabun: {
+    normal: 'THSarabun.ttf',
+    bold: 'THSarabun Bold.ttf',
+    italics: 'THSarabun Italic.ttf',
+    bolditalics: 'THSarabun Bold Italic.ttf',
+  },
+  Roboto: {
+    normal: 'Roboto-Regular.ttf',
+    bold: 'Roboto-Medium.ttf',
+    italics: 'Roboto-Italic.ttf',
+    bolditalics: 'Roboto-MediumItalic.ttf',
+  },
+};
+pdfMake.vfs = pdfFonts.pdfMake ? pdfFonts.pdfMake.vfs : pdfMake.vfs;
+
+const EXCEL_TYPE =
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const _window: any = window;
 
 @Injectable({
@@ -48,6 +70,66 @@ export class AppService {
     private titleService: Title,
     private metaService: Meta
   ) {}
+
+  exportAsPdfFile(arr: Array<any>) {
+    const documentDefinition = this.getDocumentDefinition(arr);
+    pdfMake.createPdf(documentDefinition).download('asdasd');
+  }
+
+  private getDocumentDefinition(arr: Array<any>) {
+    let widths = [];
+
+    arr[0].forEach((e) => {
+      widths.push('auto');
+    });
+
+    return {
+      pageSize: 'A4',
+      pageOrientation: 'landscape',
+      content: [
+        {
+          table: {
+            headerRows: 1,
+            widths: [...widths],
+            body: [...arr],
+          },
+        },
+      ],
+      defaultStyle: {
+        font: 'THSarabun',
+        fontSize: 14,
+      },
+    };
+  }
+
+  // ---------------------------------------------------- //
+
+  public exportAsExcelFile(
+    json: any[],
+    excelFileName: string,
+    typeFile = 'xls'
+  ): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workbook: XLSX.WorkBook = {
+      Sheets: { data: worksheet },
+      SheetNames: ['data'],
+    };
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: typeFile == 'xls' ? 'xls' : 'xlsx',
+      type: 'array',
+    });
+
+    this.saveAsExcelFile(excelBuffer, excelFileName, typeFile);
+  }
+
+  private saveAsExcelFile(
+    buffer: any,
+    fileName: string,
+    extension: string
+  ): void {
+    const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
+    FileSaver.saveAs(data, fileName + '.' + extension);
+  }
 
   public strToInt = (value: string) => {
     return parseInt(value);

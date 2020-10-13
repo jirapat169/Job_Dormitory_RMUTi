@@ -32,11 +32,14 @@
     "@scullyio/ng-lib": "latest",
     "@scullyio/scully": "latest",
     "bootstrap": "^4.4.1",
+    "file-saver": "^2.0.2",
     "jquery": "^3.4.1",
+    "pdfmake": "^0.1.68",
     "rxjs": "~6.5.4",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^9.14.0",
     "tslib": "^1.10.0",
+    "xlsx": "^0.16.8",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -48,6 +51,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
+    "gulp": "^4.0.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.4.1",
