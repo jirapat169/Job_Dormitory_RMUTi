@@ -37,7 +37,7 @@ export class AppService {
   private currentRouter: string = '/';
   private currentRouterSubscribe: Observable<any>;
   private httpRootURL: string =
-    'http://cpe.rmuti.ac.th/project/dormitory/cost/api/index.php/';
+    'http://cpe.rmuti.ac.th/project/dormitory_rmuti/api/index.php/';
   private userLogin: any = null;
   private showLoading: boolean = false;
   public month: Array<string> = [

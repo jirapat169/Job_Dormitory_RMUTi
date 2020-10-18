@@ -5,6 +5,7 @@ import { PrivateComponent } from './components/private/private.component';
 import { CheckLoginGuard } from './guards/check-login.guard';
 import { AdminViewGuard } from './guards/admin-view.guard';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { StudentViewGuard } from './guards/student-view.guard';
 
 const routes: Routes = [
   {
@@ -88,6 +89,20 @@ const routes: Routes = [
             loadChildren: () =>
               import('./pages/admin/cost-summary/cost-summary.module').then(
                 (m) => m.CostSummaryModule
+              ),
+          },
+          {
+            path: 'qa',
+            canActivate: [AdminViewGuard],
+            loadChildren: () =>
+              import('./pages/admin/qa/qa.module').then((m) => m.QaModule),
+          },
+          {
+            path: 'student',
+            canActivate: [StudentViewGuard],
+            loadChildren: () =>
+              import('./pages/student/student.module').then(
+                (m) => m.StudentModule
               ),
           },
           {
