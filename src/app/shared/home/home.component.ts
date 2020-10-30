@@ -9,6 +9,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 })
 export class HomeComponent implements OnInit {
   public calendarPlugins = [dayGridPlugin];
+  public listQuestion: Array<any> = [];
 
   constructor(public service: AppService) {
     this.service.setHeaderPage('home', 'หน้าหลัก');
@@ -17,6 +18,28 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     if (this.service.getUserLogin()['role'] == 'admin') {
       // console.log('hello');
+      this.getAllQuestion();
     }
   }
+
+  private getAllQuestion = () => {
+    this.service.httpGet(`support/getStudentQuestion`).then((val: any) => {
+      console.log(val);
+      if (val.result.length > 0) {
+        this.listQuestion = val.result;
+      }
+    });
+  };
+
+  public onAnswer = (answer: string, data: any) => {
+    data['answer'] = answer;
+    data['admin'] = this.service.getUserLogin()['username'];
+
+    this.service
+      .httpPost(`support/adminAnswer`, JSON.stringify(data))
+      .then((val: any) => {
+        this.getAllQuestion();
+        console.log(val);
+      });
+  };
 }
