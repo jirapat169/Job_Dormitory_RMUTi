@@ -33,7 +33,7 @@
     "@scullyio/scully": "latest",
     "bootstrap": "^4.4.1",
     "file-saver": "^2.0.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "pdfmake": "^0.1.68",
     "rxjs": "~6.5.4",
     "sweetalert": "^2.1.2",
