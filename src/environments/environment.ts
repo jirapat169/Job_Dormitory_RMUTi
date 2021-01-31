@@ -10,7 +10,7 @@ export const environment = {
     'http://www.cpe.rmuti.ac.th/project/QR_Student/sso/?slo&redirect=http://localhost:4200/login',
   baseHref: '/',
   url: 'http://localhost:4200/',
-  api_url : 'http://localhost:8080/dormitory_rmuti/api/index.php/'
+  api_url : 'http://localhost/dormitory_rmuti/api/index.php/'
 };
 
 /*
