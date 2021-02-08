@@ -78,11 +78,11 @@ export class PrivateComponent implements OnInit {
           //   name: 'คำถามที่พบบ่อย',
           //   path: '/qa',
           // },
-          // {
-          //   icon: 'fas fa-users-cog',
-          //   name: 'จัดการบัญชีผู้ใช้',
-          //   path: '/usermanager',
-          // },
+          {
+            icon: 'fas fa-users-cog',
+            name: 'จัดการบัญชีผู้ใช้',
+            path: '/usermanager',
+          },
         ];
       } else if (this.service.getUserLogin()['type_id'] == '2') {
         this.menuList = [
