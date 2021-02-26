@@ -1,11 +1,11 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../../../Sites/dormitory_rmuti/api"
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "..\\..\\..\\..\\xampp\\htdocs\\dormitory_rmuti\\api"
+    }
+  ],
+  "settings": {}
 }

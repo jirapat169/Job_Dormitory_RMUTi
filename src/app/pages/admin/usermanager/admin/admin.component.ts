@@ -11,8 +11,7 @@ export class AdminComponent implements OnInit {
   public listAdminType: Array<any> = [];
   public listAdminUsers: Array<any> = [];
   public userForm: FormGroup;
-  public userPassword: FormGroup;
-  public userSelected: boolean = false;
+  public userSelected: any = null;
 
   constructor(public service: AppService, private formBuilder: FormBuilder) {}
 
@@ -25,12 +24,8 @@ export class AdminComponent implements OnInit {
       personalId: ['', [Validators.required]],
       type: ['', [Validators.required]],
       role: ['admin', [Validators.required]],
-    });
-
-    this.userPassword = this.formBuilder.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      re_password: ['', [Validators.required]],
+      password: [''],
+      re_password: [''],
     });
 
     await this.getAdminType();
@@ -43,7 +38,7 @@ export class AdminComponent implements OnInit {
     );
 
     searchDataArray.length > 0 && [
-      (this.userSelected = true),
+      (this.userSelected = searchDataArray[0]),
       this.userForm.patchValue({
         username: searchDataArray[0]['username'],
         nameTitle: searchDataArray[0]['nameTitle'],
@@ -52,13 +47,10 @@ export class AdminComponent implements OnInit {
         personalId: searchDataArray[0]['personalId'],
         type: searchDataArray[0]['type'],
       }),
-      this.userPassword.patchValue({
-        username: searchDataArray[0]['username'],
-      }),
     ];
 
     searchDataArray.length == 0 && [
-      (this.userSelected = false),
+      (this.userSelected = null),
       this.service.showAlert('ไม่พบข้อมูล', '', 'warning'),
       (data.value = ''),
     ];
@@ -70,7 +62,9 @@ export class AdminComponent implements OnInit {
       .then((val) => {
         if (val['success']) {
           if (val['rowCount'] > 0) {
-            this.listAdminType = val['result'];
+            this.listAdminType = val['result'].filter(
+              (e) => e.type_name != 'นักศึกษา'
+            );
           }
         }
 
@@ -102,7 +96,7 @@ export class AdminComponent implements OnInit {
     console.log(this.userForm.value);
   };
 
-  public formUserPassword = () => {
-    console.log(this.userPassword.value);
+  public reset = () => {
+    window.location.reload();
   };
 }
