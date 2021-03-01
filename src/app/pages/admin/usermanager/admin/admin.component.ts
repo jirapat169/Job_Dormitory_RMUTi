@@ -93,7 +93,44 @@ export class AdminComponent implements OnInit {
   };
 
   public formAdminSubmit = () => {
-    console.log(this.userForm.value);
+    let data = { ...this.userForm.value };
+    if (this.userSelected == null) {
+      this.service
+        .httpPost('/support/addUserData', JSON.stringify(data))
+        .then((val) => {
+          console.log(val);
+          this.service.showAlert('บันทึกข้อมูลสำเร็จ', '', 'success');
+        })
+        .catch((reason) => {
+          console.log(reason);
+        });
+    } else {
+      if (`${data['password']}`.length > 0) {
+        if (`${data['password']}` !== `${data['re_password']}`) {
+          this.service.showAlert('รหัสผ่านไม่ตรงกัน', '', 'error');
+          return;
+        }
+        this.service
+          .httpPost('/support/updateUserDataWithPassword', JSON.stringify(data))
+          .then((val) => {
+            console.log(val);
+            this.service.showAlert('บันทึกข้อมูลสำเร็จ', '', 'success');
+          })
+          .catch((reason) => {
+            console.log(reason);
+          });
+      } else {
+        this.service
+          .httpPost('/support/updateUserData', JSON.stringify(data))
+          .then((val) => {
+            console.log(val);
+            this.service.showAlert('บันทึกข้อมูลสำเร็จ', '', 'success');
+          })
+          .catch((reason) => {
+            console.log(reason);
+          });
+      }
+    }
   };
 
   public reset = () => {

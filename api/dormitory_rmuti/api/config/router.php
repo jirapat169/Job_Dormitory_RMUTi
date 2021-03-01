@@ -20,6 +20,12 @@ $app->group('/support', function ($app) {
     $app->post('/adminAnswer', \Controller\Support::class . ":adminAnswer");
     $app->get('/getAdminType', \Controller\Support::class . ":getAdminType");
     $app->get('/getAdminUsers', \Controller\Support::class . ":getAdminUsers");
+    $app->get('/getStudentUsers', \Controller\Support::class . ":getStudentUsers");
+    $app->post('/addUserData', \Controller\Support::class . ":addUserData");
+    $app->post('/updateUserData', \Controller\Support::class . ":updateUserData");
+    $app->post('/updateUserDataWithPassword', \Controller\Support::class . ":updateUserDataWithPassword");
+    $app->post('/updateStudentData', \Controller\Support::class . ":updateStudentData");
+    $app->post('/updateStudentPassword', \Controller\Support::class . ":updateStudentPassword");
 });
 
 $app->group('/admin', function ($app) {

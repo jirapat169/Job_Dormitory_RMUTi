@@ -87,7 +87,32 @@ export class StudentComponent implements OnInit {
   };
 
   public formAdminSubmit = () => {
-    console.log(this.userForm.value);
+    let data = { ...this.userForm.value };
+    if (`${data['password']}`.length > 0) {
+      if (`${data['password']}` !== `${data['re_password']}`) {
+        this.service.showAlert('รหัสผ่านไม่ตรงกัน', '', 'error');
+        return;
+      }
+      this.service
+        .httpPost('/support/updateStudentPassword', JSON.stringify(data))
+        .then((val) => {
+          console.log(val);
+          this.service.showAlert('บันทึกข้อมูลสำเร็จ', '', 'success');
+        })
+        .catch((reason) => {
+          console.log(reason);
+        });
+    } else {
+      this.service
+        .httpPost('/support/updateStudentData', JSON.stringify(data))
+        .then((val) => {
+          console.log(val);
+          this.service.showAlert('บันทึกข้อมูลสำเร็จ', '', 'success');
+        })
+        .catch((reason) => {
+          console.log(reason);
+        });
+    }
   };
 
   public reset = () => {

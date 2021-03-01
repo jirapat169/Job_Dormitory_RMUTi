@@ -91,4 +91,127 @@ class Support
         $response->getBody()->write(\json_encode($query));
         return $response;
     }
+
+    public function getStudentUsers(Request $request, Response $response, $args)
+    {
+        $db = new \Tools\Database();
+        $query = $db->query(
+            "SELECT * FROM `user`
+            INNER JOIN `student` ON `user`.`username` = `student`.`std_code`
+            WHERE `user`.`type` = '0' AND `student`.`status` = '1'"
+        );
+
+        $response->getBody()->write(\json_encode($query));
+        return $response;
+    }
+
+    public function addUserData(Request $request, Response $response, $args)
+    {
+        $rawdata = \json_decode(file_get_contents("php://input"));
+        $db = new \Tools\Database();
+        $query = $db->query(
+            "INSERT INTO `user`
+            (`username`,
+             `password`,
+             `nameTitle`,
+             `fname`,
+             `lname`,
+             `personalId`,
+             `role`,
+             `type`)
+             VALUES
+             ('" . $rawdata->username . "',
+             '" . md5($rawdata->password) . "',
+             '" . $rawdata->nameTitle . "',
+             '" . $rawdata->fname . "',
+             '" . $rawdata->lname . "',
+             '" . $rawdata->personalId . "',
+             '" . $rawdata->role . "',
+             '" . $rawdata->type . "')"
+        );
+
+        $response->getBody()->write(\json_encode($query));
+        return $response;
+    }
+
+    public function updateUserData(Request $request, Response $response, $args)
+    {
+        $rawdata = \json_decode(file_get_contents("php://input"));
+        $db = new \Tools\Database();
+        $query = $db->query(
+            "UPDATE `user` SET
+            `nameTitle` = '" . $rawdata->nameTitle . "',
+            `fname` = '" . $rawdata->fname . "',
+            `lname` = '" . $rawdata->lname . "',
+            `personalId` = '" . $rawdata->personalId . "',
+            `type` = '" . $rawdata->type . "'
+            WHERE `user`.`username` = '" . $rawdata->username . "'"
+        );
+
+        $response->getBody()->write(\json_encode($query));
+        return $response;
+    }
+
+    public function updateUserDataWithPassword(Request $request, Response $response, $args)
+    {
+        $rawdata = \json_decode(file_get_contents("php://input"));
+        $db = new \Tools\Database();
+        $query = $db->query(
+            "UPDATE `user` SET
+            `password` = '" . md5($rawdata->password) . "',
+            `nameTitle` = '" . $rawdata->nameTitle . "',
+            `fname` = '" . $rawdata->fname . "',
+            `lname` = '" . $rawdata->lname . "',
+            `personalId` = '" . $rawdata->personalId . "',
+            `type` = '" . $rawdata->type . "'
+            WHERE `user`.`username` = '" . $rawdata->username . "'"
+        );
+
+        $response->getBody()->write(\json_encode($query));
+        return $response;
+    }
+
+    public function updateStudentData(Request $request, Response $response, $args)
+    {
+        $rawdata = \json_decode(file_get_contents("php://input"));
+        $db = new \Tools\Database();
+        $query = $db->query(
+            "UPDATE `student` SET
+            `nameTitle` = '" . $rawdata->nameTitle . "',
+            `fname` = '" . $rawdata->fname . "',
+            `lname` = '" . $rawdata->lname . "'
+            WHERE `student`.`std_code` = '" . $rawdata->username . "'"
+        );
+
+        $response->getBody()->write(\json_encode($query));
+        return $response;
+    }
+
+    public function updateStudentPassword(Request $request, Response $response, $args)
+    {
+        $rawdata = \json_decode(file_get_contents("php://input"));
+        $db = new \Tools\Database();
+        $output = null;
+        $updatePassword = $db->query(
+            "UPDATE `user` SET
+            `password` = '" . md5($rawdata->password) . "'
+            WHERE `user`.`username` = '" . $rawdata->username . "'"
+        );
+        $updateData = $db->query(
+            "UPDATE `student` SET
+            `nameTitle` = '" . $rawdata->nameTitle . "',
+            `fname` = '" . $rawdata->fname . "',
+            `lname` = '" . $rawdata->lname . "',
+            `type` = '" . $rawdata->type . "'
+            WHERE `student`.`std_code ` = '" . $rawdata->username . "'"
+        );
+
+        $output = array(
+            "updatePassword" => $updatePassword,
+            "updateData" => $updateData,
+        );
+
+        $response->getBody()->write(\json_encode($output));
+        return $response;
+    }
 }
